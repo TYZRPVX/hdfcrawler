@@ -25,7 +25,7 @@ public class Counter {
 
     public static void reportCrawlCount(Class clazz, int count, int total) {
         System.out.println("[Crawler Name]:" + clazz.getSimpleName() + " [count]:" + count + " [total]:" + total);
-        if (isNearInteger(count, total)) {
+        if (isNearInteger(count, total) && lastCrawlerClasses.contains(clazz)) {
             lastCrawlerClasses.remove(clazz);
             Mailer.sendToAddressList(clazz.getName() + " will finish crawling"
                     , "last crawlers\n" + getReadableClassesName(lastCrawlerClasses));
