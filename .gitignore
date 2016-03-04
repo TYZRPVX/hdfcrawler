@@ -24,6 +24,12 @@ proguard/
 #IntelliJ Idea
 .idea/
 *.iml
+out/
+bin/
+
+#eclipse
+.settings/
+
 
 ####################
 
