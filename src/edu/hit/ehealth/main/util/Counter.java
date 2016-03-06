@@ -27,8 +27,10 @@ public class Counter {
         System.out.println("[Crawler Name]:" + clazz.getSimpleName() + " [count]:" + count + " [total]:" + total);
         if (isNearInteger(count, total) && lastCrawlerClasses.contains(clazz)) {
             lastCrawlerClasses.remove(clazz);
-            Mailer.sendToAddressList(clazz.getName() + " will finish crawling"
-                    , "last crawlers\n" + getReadableClassesName(lastCrawlerClasses));
+            Mailer.sendToAddressList(clazz.getName() + " 将要结束爬取任务"
+                    , "下面是未完成爬取任务的爬虫\n"
+                            + getReadableClassesName(lastCrawlerClasses)
+            );
         }
     }
 
