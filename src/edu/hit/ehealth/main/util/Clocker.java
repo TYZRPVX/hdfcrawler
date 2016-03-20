@@ -9,11 +9,10 @@ import edu.hit.ehealth.main.crawler.patient.PatientServiceAreaCrawler;
 import edu.hit.ehealth.main.crawler.patient.ThankLetterCrawler;
 import edu.hit.ehealth.main.crawler.patient.ThankLetterPatcherCrawler;
 import edu.hit.ehealth.main.erroravenger.ErrorWiper;
+import edu.hit.ehealth.main.util.mail.Mailer;
 import org.apache.commons.lang.ArrayUtils;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.*;
 
 public class Clocker {
@@ -86,6 +85,29 @@ public class Clocker {
             toRunClasses = (Class[]) ArrayUtils.addAll(mustExistClasses, crawlersPack4);
         }
 
+        runClassesConcurrently(toRunClasses);
+
+        String sub = "Task: " + taskOrder + " finished";
+        String content = "Please close " + "crawl-task-" + taskOrder + ".bat";
+        Mailer.sendToAddressList(sub, content);
+    }
+
+    public static void oldMain(String[] args) {
+        String taskOrder = args[0];
+        Class[] toRunClasses = new Class[0];
+        if (taskOrder.equals("1")) {
+            runClassesDailyConcurrently(everyDayClasses);
+            runClassesEveryMinutesConcurrently(everyMinutesClasses);
+            runClassesOneMinuteConcurrently(oneMinuteClasses);
+            toRunClasses = (Class[]) ArrayUtils.addAll(mustExistClasses, crawlersPack1);
+        } else if (taskOrder.equals("2")) {
+            toRunClasses = (Class[]) ArrayUtils.addAll(mustExistClasses, crawlersPack2);
+        } else if (taskOrder.equals("3")) {
+            toRunClasses = (Class[]) ArrayUtils.addAll(mustExistClasses, crawlersPack3);
+        } else if (taskOrder.equals("4")) {
+            toRunClasses = (Class[]) ArrayUtils.addAll(mustExistClasses, crawlersPack4);
+        }
+
         runClassesWeeklyConcurrently(toRunClasses);
     }
 
@@ -113,6 +135,12 @@ public class Clocker {
         timer.schedule(new ConcurrentTasks(classes), Utils.getCurrentDate(), aDayTime);
     }
 
+
+    private static Class[] allClasses = getAllCrawlerClasses();
+
+    private static List<Class> lastCrawlerClasses = new ArrayList<>(Arrays.asList(allClasses));
+
+
     public static void runClassesConcurrently(Class[] classes) {
         ExecutorService exec = Executors.newCachedThreadPool();
         ArrayList<Future<Class>> futures = new ArrayList<>();
@@ -127,7 +155,30 @@ public class Clocker {
             Future<Class> future = exec.submit(callable);
             futures.add(future);
         }
+        for (Future<Class> future : futures) {
+            Class finishedClass = getFuture(future);
+            if (lastCrawlerClasses.contains(finishedClass)) {
+                lastCrawlerClasses.remove(finishedClass);
+                String content = "Remain" + " crawlers";
+                Mailer.sendToAddressList(finishedClass.getSimpleName() + " finished"
+                        , content);
+            }
+        }
     }
+
+
+    private static Class getFuture(Future<Class> future) {
+        try {
+            Class klass = future.get();
+            return klass;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        throw new RuntimeException("Can't get anything from future...");
+    }
+
 
     private static class ConcurrentTasks extends TimerTask {
 

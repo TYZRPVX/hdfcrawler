@@ -19,11 +19,11 @@ public class SiteInspector {
         String url = "http://www.haodf.com/";
         boolean isSiteAvailable = testSite(url);
         if (!isSiteAvailable) {
-            Mailer.reportSiteInspector(url + " 网站被封，尽快切换IP");
+            Mailer.reportSiteInspector(url + " is not available, need change IP");
         }
         int count = countError();
         if (count > SHOULD_SEND_MAIL_ERROR_COUNT) {
-            Mailer.reportSiteInspector("尽快切换IP，超时错误总计超过 " + SHOULD_SEND_MAIL_ERROR_COUNT);
+            Mailer.reportSiteInspector("need change IP, count(Error) > " + SHOULD_SEND_MAIL_ERROR_COUNT);
         }
     }
 
@@ -34,7 +34,7 @@ public class SiteInspector {
     }
 
     private static boolean testSite(String url) {
-        final int testTimes = 10;
+        final int testTimes = 20;
         boolean isSiteAvailable = false;
         for (int i = 0; i < testTimes; i++) {
             isSiteAvailable = isSiteAvailable || canSiteVisited(url);

@@ -21,7 +21,7 @@ import java.util.*;
 
 public class Utils {
 
-    public static boolean SHOULD_PRT = false;
+    public static boolean SHOULD_PRT = true;
     static MessageDigest md5 = null;
     private static Logger LOGGER_INSTANCE;
     private static ErrorMessageDao emDao =

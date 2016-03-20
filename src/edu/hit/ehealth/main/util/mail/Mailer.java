@@ -10,6 +10,7 @@ public class Mailer {
     };
 
     public static void main(String[] args) {
+        sendToAddressList("中文", "中文");
     }
 
     private static MailSenderInfo getSinaMailInfo() {
