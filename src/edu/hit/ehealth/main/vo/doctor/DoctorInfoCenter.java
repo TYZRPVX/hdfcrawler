@@ -20,6 +20,33 @@ public class DoctorInfoCenter extends AbstractVO {
     private String specID;
     private String officeID;
     private String hospitalID;
+    public String getAllPatients() {
+		return allPatients;
+	}
+
+	public void setAllPatients(String allPatients) {
+		this.allPatients = allPatients;
+	}
+
+	public String getSfPatients() {
+		return sfPatients;
+	}
+
+	public void setSfPatients(String sfPatients) {
+		this.sfPatients = sfPatients;
+	}
+
+	public String getStar() {
+		return star;
+	}
+
+	public void setStar(String star) {
+		this.star = star;
+	}
+
+	private String allPatients;
+    private String sfPatients;
+    private String star;
 
     public String getVisitCount() {
         return visitCount;
