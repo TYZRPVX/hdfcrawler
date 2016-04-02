@@ -1,5 +1,5 @@
 package edu.hit.ehealth.main.crawler.doctor;
-
+/*修复了疗效、态度、治疗方式有乱码的问题,部分记录有空的字段，是因为网页数据确实是空的*/
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.crawler.basestruct.NextPageTracker;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
@@ -103,9 +103,18 @@ public class DoctorExperienceCrawler extends Crawler implements NextPageTracker 
                 experience.setFromCity(city);
             }
             if (line.contains("<span>疾病")) {
-                String disease = RegexUtils.regexFind("<span>(疾病.+)", line);
-                if (Utils.SHOULD_PRT) System.out.println("disease = " + disease);
-                experience.setDisease(disease);
+            	if(line.contains("href")){
+            		String disease = RegexUtils.regexFind(".+none;\">(\\S+)</a>", line);
+            		System.out.println("disease = " + disease);
+            		experience.setDisease(disease);
+            	}
+            	else{
+            		String disease = RegexUtils.regexFind(".+span>(.*)</td>", line);
+            		System.out.println("disease = " + disease);
+            		experience.setDisease(disease);
+            	}
+               /* if (Utils.SHOULD_PRT) System.out.println("disease = " + disease);
+                experience.setDisease(disease);*/
             }
             if (line.contains("class=\"gray\">时间")) {
                 String postDate = RegexUtils.regexFind("class=\"gray\">时间.(.+)\\s*</td>", line);
@@ -113,19 +122,41 @@ public class DoctorExperienceCrawler extends Crawler implements NextPageTracker 
                 experience.setRecordDate(postDate);
             }
             if (line.contains("width=\"34%\">疗效")) {
-//                String effect = Utils.regexFind("class=\"orange\">(.+)</span>", line);
-                String effect = line;
-                if (Utils.SHOULD_PRT) System.out.println("effect = " + effect);
-                experience.setEffect(effect);
+                String effect1 = RegexUtils.regexFind("class=\"orange\">(.+)</span>", line);
+                String effect2 = RegexUtils.regexFind("class=\"gray\">(.+)</span>", line);
+                
+                if(effect1.length() > effect2.length()) experience.setEffect(effect2);
+                else experience.setEffect(effect1);
+//                String effect = line;
+              /*  if (Utils.SHOULD_PRT) System.out.println("effect = " + effect);
+                experience.setEffect(effect);*/
             }
             if (line.contains("width=\"34%\">态度")) {
-//                String attitude = Utils.regexFind("class=\"orange\">(.+)</span>", line);
-                String attitude = line;
-                experience.setAttitude(attitude);
+            	String attitude1 = RegexUtils.regexFind("class=\"orange\">(.+)</span>", line);
+                String attitude2 = RegexUtils.regexFind("class=\"gray\">(.+)</span>", line);
+                
+                if(attitude1.length() > attitude2.length()) {
+                	experience.setAttitude(attitude2);
+//                	System.out.println("attitude = " + attitude2);
+                }
+                else {
+                	
+                	experience.setAttitude(attitude1);
+//                	System.out.println("attitude = " + attitude1);
+                	}
+//                String attitude = RegexUtils.regexFind("class=\"orange\">(.+)</span>", line);
+//                String attitude = line;
+  /*              if (Utils.SHOULD_PRT) System.out.println("attitude = " + attitude);
+                experience.setAttitude(attitude);*/
             }
             if (line.contains("class=gray>治疗方式")) {
-                String cureMethod = RegexUtils.regexFind("class=gray>治疗方式：</span>(.+)<br>", line);
-                experience.setCureMethod(cureMethod);
+                if(line.contains("未填")){
+                	experience.setCureMethod("未填");
+                }
+                else{
+                	String cureMethod = RegexUtils.regexFind("class=gray>治疗方式：</span>(.+)<br>", line);
+                	experience.setCureMethod(cureMethod);
+                }
             }
             if (line.contains("class=\"spacejy\">")) {
                 isCureProcess = true;
@@ -179,7 +210,8 @@ public class DoctorExperienceCrawler extends Crawler implements NextPageTracker 
 
     public static void main(String[] args) {
         DoctorExperienceCrawler c = new DoctorExperienceCrawler(Resource.obtainAsync());
-        c.crawl("http://www.haodf.com/doctor/DE4r08xQdKSLBT0wXYSdpUn-8HdJ/kanbingjingyan/1.htm");
-        run();
+//        c.crawl("http://www.haodf.com/doctor/DE4r08xQdKSLBT0wXYSdpUn-8HdJ/kanbingjingyan/3.htm");
+        c.crawl("http://www.haodf.com/doctor/DE4r0BCkuHzduSNTnHT0-22oNxVxB/kanbingjingyan/1.htm");
+        //run();
     }
 }
