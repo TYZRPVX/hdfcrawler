@@ -1,5 +1,6 @@
 package edu.hit.ehealth.main.crawler.doctor;
-
+//ysgrwz 缺的四个字段找不到,
+/*修复了opentime 存在乱码的问题*/
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.doctor.DoctorHomepageDao;
@@ -32,6 +33,9 @@ public class DoctorHomePageCrawler extends Crawler {
     static {
         homepageDao = GlobalApplicationContext.getContext().getBean(DoctorHomepageDao.class);
         homepageSet.add("http://chenenguo.haodf.com/");
+        homepageSet.add("http://lixueni.haodf.com/");
+        homepageSet.add("http://cdxcf6.haodf.com/");
+        homepageSet.add("http://zhoubaotong.haodf.com/");
     }
 
 
@@ -194,7 +198,8 @@ public class DoctorHomePageCrawler extends Crawler {
     }
 
     private void extractPK(String line) {
-        String pk = RegexUtils.regexFind("space_b_url\">(\\S+).haodf.com</span>", line);
+    	//加了个 .+
+        String pk = RegexUtils.regexFind(".+space_b_url\">(\\S+).haodf.com</span>", line);
         if (Utils.SHOULD_PRT) System.out.println("pk = " + pk);
         doctorHomepage.setPrimaryId(pk);
         extractSkillsAndIntro("http://" + pk + ".haodf.com/api/index/ajaxdoctorintro?uname=" + pk);
@@ -322,10 +327,10 @@ public class DoctorHomePageCrawler extends Crawler {
     }
 
     private void extractOpenDate(String line) throws ParseException {
-//        String dateTime = Utils.regexFind("range1 pr5\">(.+)</span>", line);
-//        if (Utils.SHOULD_PRT) System.out.println("dateTime = " + dateTime);
-        String date = Utils.noWayParseDateText(line);
-        doctorHomepage.setOpenTime(date);
+        String dateTime = RegexUtils.regexFind("range1 pr5\">(.+)</span>", line);
+        if (Utils.SHOULD_PRT) System.out.println("dateTime = " + dateTime);
+//        String date = Utils.noWayParseDateText(line);
+        doctorHomepage.setOpenTime(dateTime);
     }
 
     private void extractInfoID(String line) {

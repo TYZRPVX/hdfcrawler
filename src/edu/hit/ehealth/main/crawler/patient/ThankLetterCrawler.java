@@ -9,6 +9,7 @@ import edu.hit.ehealth.main.util.Resource;
 import edu.hit.ehealth.main.util.RegexUtils;
 import edu.hit.ehealth.main.util.Utils;
 import edu.hit.ehealth.main.vo.patient.ThankLetter;
+
 import org.apache.http.client.fluent.Async;
 
 import java.io.BufferedReader;
@@ -117,20 +118,41 @@ public class ThankLetterCrawler extends Crawler {
                 thankLetter.setDisease(disease);
             }
             if (line.contains("<td width=\"34%\" class=\"gray\">时间")) {
-//                String postDate = Utils.regexFind("时间：(.+)\\s*</td>", line);
-//                if (Utils.SHOULD_PRT) System.out.println("postDate = " + postDate);
-                thankLetter.setRecordDate(Utils.noWayParseDateText(line));
+                String postDate = RegexUtils.regexFind("时间：(.+)\\s*</td>", line);
+                if (Utils.SHOULD_PRT) System.out.println("postDate = " + postDate);
+                //thankLetter.setRecordDate(Utils.noWayParseDateText(line));
+                thankLetter.setRecordDate(postDate);
             }
-            if (line.contains("width=\"34%\">疗效")) {
+/*            if (line.contains("width=\"34%\">疗效")) {
                 String effect = RegexUtils.regexFind("class=\"orange\">(\\S+)</span>", line);
                 if (Utils.SHOULD_PRT) System.out.println("effect = " + effect);
                 thankLetter.setEffect(effect);
-            }
-            if (line.contains("width=\"34%\">态度")) {
+            }*/
+            if (line.contains("width=\"34%\">疗效")) {
+                String effect1 = RegexUtils.regexFind("class=\"orange\">(.+)</span>", line);
+                String effect2 = RegexUtils.regexFind("class=\"gray\">(.+)</span>", line);
+                
+                if(effect1.length() > effect2.length()) thankLetter.setEffect(effect2);
+                else thankLetter.setEffect(effect1);
+/*            if (line.contains("width=\"34%\">态度")) {
                 String attitude = RegexUtils.regexFind("class=\"orange\">(\\S+)</span>", line);
                 if (Utils.SHOULD_PRT) System.out.println("attitude = " + attitude);
-                thankLetter.setAttitude(attitude);
+                thankLetter.setAttitude(attitude);*/
             }
+                if (line.contains("width=\"34%\">态度")) {
+                	String attitude1 = RegexUtils.regexFind("class=\"orange\">(.+)</span>", line);
+                    String attitude2 = RegexUtils.regexFind("class=\"gray\">(.+)</span>", line);
+                    
+                    if(attitude1.length() > attitude2.length()) {
+                    	thankLetter.setAttitude(attitude2);
+//                    	System.out.println("attitude = " + attitude2);
+                    }
+                    else {
+                    	
+                    	thankLetter.setAttitude(attitude1);
+//                    	System.out.println("attitude = " + attitude1);
+                    	} 
+                }
             if (line.contains("class=\"spacejy\">")) {
                 isContent = true;
             } else if (isContent) {

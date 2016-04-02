@@ -138,5 +138,6 @@ public class DoctorEssayCrawler extends Crawler implements NextPageTracker {
     public static void main(String[] args) {
         DoctorEssayCrawler c = new DoctorEssayCrawler(Resource.obtainAsync());
         c.crawl("http://lixueni.haodf.com/lanmu");
+        run();
     }
 }

@@ -1,5 +1,5 @@
 package edu.hit.ehealth.main.crawler.patient;
-
+/*修复了发表时间的问题*/
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.patient.ClubThreadDao;
@@ -47,7 +47,7 @@ public class ClubThreadCrawler extends Crawler {
         StringBuilder publisherBlock = new StringBuilder();
         StringBuilder titleBlock = new StringBuilder();
         while ((line = content.readLine()) != null) {
-            if (line.contains("发表于")) {
+            if (line.contains("fl\">发表于")) {
                 extractPostDate(line);
             }
             //content
@@ -104,9 +104,11 @@ public class ClubThreadCrawler extends Crawler {
     }
 
     private void extractPostDate(String line) throws ParseException {
-//        if (Utils.SHOULD_PRT) System.out.println("line = " + line);
-        String date = Utils.noWayParseDateText(line);
-        clubThread.setPostDate(date);
+       
+        String dateStr = RegexUtils.regexFind(".+于：(.+)</p>", line);
+        if (Utils.SHOULD_PRT) System.out.println("datestr = " + dateStr);
+        //String date = Utils.noWayParseDateText(line);
+        clubThread.setPostDate(dateStr);
 
     }
 

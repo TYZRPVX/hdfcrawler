@@ -83,8 +83,12 @@ public class PatientServiceAreaTextCrawler extends Crawler {
     }
 
     private void extractPostDate(String line) throws ParseException {
-        if (Utils.SHOULD_PRT) System.out.println("line = " + line);
-        areaText.setPostDateStr(line);
+    	
+    	String dateStr = RegexUtils.regexFind(".+于：(.+).+", line);
+        if (Utils.SHOULD_PRT) System.out.println("dateStr = " + dateStr);
+        areaText.setPostDateStr(dateStr);
+        
+        
     }
 
 
@@ -103,7 +107,8 @@ public class PatientServiceAreaTextCrawler extends Crawler {
 
     public static void main(String[] args) {
         PatientServiceAreaTextCrawler c = new PatientServiceAreaTextCrawler(Resource.obtainAsync());
-//        c.crawl("http://www.haodf.com/wenda/zhaoquanming_g_3802909492.htm");
+        c.crawl("http://www.haodf.com/wenda/zhaoquanming_g_3802909492.htm");
         c.crawl("http://www.haodf.com/wenda/surgwy_g_2098341767.htm");
+        c.crawl("http://www.haodf.com/wenda/xuyishengdr_g_4125437020.htm");
     }
 }
