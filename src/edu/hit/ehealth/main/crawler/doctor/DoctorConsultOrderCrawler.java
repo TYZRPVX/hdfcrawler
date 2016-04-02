@@ -1,5 +1,5 @@
 package edu.hit.ehealth.main.crawler.doctor;
-
+//注意测试的链接。程序没有问题
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.doctor.DoctorConsultOrderDao;
@@ -56,7 +56,7 @@ public class DoctorConsultOrderCrawler extends Crawler {
         boolean isBlock = false;
         StringBuilder orderBlock = new StringBuilder();
         while ((line = content.readLine()) != null) {
-            System.out.println("line = " + line);
+            //System.out.println("line = " + line);
             if (line.contains("<div class=\"tel-service-user1 fl\">")) {
                 isBlock = true;
             } else if (isBlock) {
@@ -65,6 +65,7 @@ public class DoctorConsultOrderCrawler extends Crawler {
             if (isBlock && line.contains("<em class=\"thankFeedBack cp blue4\">")) {
                 isBlock = false;
                 extractOrderBlock(orderBlock.toString());
+                System.out.println("orderBlock "+orderBlock.toString());
                 orderBlock.setLength(0);
                 consultOrder.setCrawlPageUrl(trackPageUrl());
                 consultOrder.setCrawlDate(Utils.getCurrentDate());
@@ -127,7 +128,8 @@ public class DoctorConsultOrderCrawler extends Crawler {
 
     public static void main(String[] args) {
         DoctorConsultOrderCrawler c = new DoctorConsultOrderCrawler(Resource.obtainAsync());
-        c.crawl("http://cdxcf6.haodf.com/payment/newintro");
+        c.crawl("http://cdxcf6.haodf.com/payment/ajaxshowtelorders");
+        //之前测试的链接写错了，应该是ajaxshowtelorders
     }
 
 }
