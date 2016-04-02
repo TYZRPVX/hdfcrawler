@@ -1,5 +1,5 @@
 package edu.hit.ehealth.main.crawler.patient;
-
+/*修复了最后发表有乱码的问题*/
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.patient.PatientServiceAreaDao;
@@ -99,7 +99,7 @@ public class PatientServiceAreaCrawler extends Crawler {
 
 
     private void extractMainBlock(String block) throws Exception {
-//        if (Utils.SHOULD_PRT) System.out.println("block = " + block);
+        if (Utils.SHOULD_PRT) System.out.println("block = " + block);
         StringBuilder tagsBuilder = new StringBuilder();
         String[] lines = block.split("\\r?\\n");
         for (String line : lines) {
@@ -168,10 +168,10 @@ public class PatientServiceAreaCrawler extends Crawler {
     }
 
     private void extractLastDate(String line) throws ParseException {
-//        String dateStr = Utils.regexFind("gray3\">(.+)<br/>", line);
-        String lastDate = Utils.noWayParseDateText(line);
-        if (Utils.SHOULD_PRT) System.out.println("lastDate = " + lastDate);
-        patientServiceArea.setLastPostDate(lastDate);
+        String dateStr = RegexUtils.regexFind("gray3\">(.+)<br/>", line);
+        //String lastDate = Utils.noWayParseDateText(line);
+        if (Utils.SHOULD_PRT) System.out.println("lastDate = " + dateStr);
+        patientServiceArea.setLastPostDate(dateStr);
     }
 
     protected void extractPrimaryID(String line) {
@@ -197,5 +197,6 @@ public class PatientServiceAreaCrawler extends Crawler {
     public static void main(String[] args) {
         PatientServiceAreaCrawler c = new PatientServiceAreaCrawler(Resource.obtainAsync());
         c.crawl("http://judy815.haodf.com/zixun/list.htm");
+        
     }
 }
