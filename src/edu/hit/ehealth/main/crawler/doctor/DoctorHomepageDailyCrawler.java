@@ -34,6 +34,7 @@ public class DoctorHomepageDailyCrawler extends Crawler {
         doctorHomepageDaily.setCrawlDate(Utils.getCurrentDate());
         doctorHomepageDaily.setCrawlPageUrl(trackPageUrl());
         doctorHomepageDaily.setPrimaryId(UUID.randomUUID().toString());
+        
 
         String line = null;
         boolean isCrawlID = false;
@@ -77,11 +78,11 @@ public class DoctorHomepageDailyCrawler extends Crawler {
     }
 
     private void extractLastOnlineDate(String line) throws ParseException {
-//        String dateStr = Utils.regexFind("orange1 pr5\">(.+)</span>", line);
-        String date = Utils.noWayParseDateText(line);
-        if (Utils.SHOULD_PRT) System.out.println("date = " + date);
+        String dateStr = RegexUtils.regexFind("orange1 pr5\">(.+)</span>", line);
+//        String date = Utils.noWayParseDateText(line);
+        if (Utils.SHOULD_PRT) System.out.println("date = " + dateStr);
 
-        doctorHomepageDaily.setLastOnlineDate(date);
+        doctorHomepageDaily.setLastOnlineDate(dateStr);
     }
 
     private void extractWeChatNum(String line) {
@@ -126,5 +127,7 @@ public class DoctorHomepageDailyCrawler extends Crawler {
     public static void main(String[] args) {
         DoctorHomepageDailyCrawler c = new DoctorHomepageDailyCrawler(Resource.obtainAsync());
         c.crawl("http://wuyongjian.haodf.com/");
+        c.crawl("http://chenenguo.haodf.com/");
+        c.crawl("http://lixueni.haodf.com");
     }
 }
