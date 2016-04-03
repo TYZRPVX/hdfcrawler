@@ -1,5 +1,5 @@
 package edu.hit.ehealth.main.crawler.doctor;
-
+//服务评价表两个字段找不到
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.crawler.basestruct.NextPageTracker;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
@@ -118,7 +118,7 @@ public class DoctorConsultValuationCrawler extends Crawler implements NextPageTr
         valuation.setPrimaryId(UUID.randomUUID().toString());
         for (String line : s.split("\n")) {
             if (line.contains("用户反馈: ")) {
-                String feedback = RegexUtils.regexFind("<span>(.+)", line);
+                String feedback = RegexUtils.regexFind("<span>(.+)</span>", line);
                 if (Utils.SHOULD_PRT) System.out.println("feedback = " + feedback);
                 valuation.setUserFeedback(feedback);
             }

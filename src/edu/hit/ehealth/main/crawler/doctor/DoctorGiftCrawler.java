@@ -1,4 +1,5 @@
 package edu.hit.ehealth.main.crawler.doctor;
+/*修复了时间字段有乱码的问题*/
 
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
@@ -84,10 +85,10 @@ public class DoctorGiftCrawler extends Crawler {
     private void extractMainBlock(String s) throws ParseException {
         for (String line : s.split("\n")) {
             if (line.contains("class=\"gray\">时间")) {
-//                String dateStr = Utils.regexFind("时间：(.+)</tr>", line);
-//                if (Utils.SHOULD_PRT) System.out.println("dateStr = " + dateStr);
-                String date = Utils.noWayParseDateText(line);
-                doctorGift.setDate(date);
+                String dateStr = RegexUtils.regexFind("时间：(.+)</tr>", line);
+                if (Utils.SHOULD_PRT) System.out.println("dateStr = " + dateStr);
+               // String date = Utils.noWayParseDateText(line);
+                doctorGift.setDate(dateStr);
             }
             if (line.contains("<div class=\"fb mt5 f14\">")) {
                 String giftWord = RegexUtils.regexFind("f14\">(.+)</div>", line);

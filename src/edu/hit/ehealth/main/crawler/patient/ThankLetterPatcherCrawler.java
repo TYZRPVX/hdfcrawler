@@ -104,7 +104,7 @@ public class ThankLetterPatcherCrawler extends Crawler {
     }
 
     public static void main(String[] args) {
-//        ThankLetterPatcherCrawler c = new ThankLetterPatcherCrawler(Resource.obtainAsync());
-//        c.crawl("http://zhaoquanming.haodf.com/payment/ajaxshowcommentganxie?nowPage=1");
+        ThankLetterPatcherCrawler c = new ThankLetterPatcherCrawler(Resource.obtainAsync());
+        c.crawl("http://zhaoquanming.haodf.com/payment/ajaxshowcommentganxie?nowPage=1");
     }
 }
