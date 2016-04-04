@@ -24,11 +24,6 @@ import java.util.Set;
 public class DoctorHomePageCrawler extends Crawler {
 
     public static Set<String> homepageSet = new HashSet<String>();
-
-    protected DoctorHomepage doctorHomepage;
-
-    private int servStar = 0;
-
     private static DoctorHomepageDao homepageDao = null;
 
     static {
@@ -39,9 +34,19 @@ public class DoctorHomePageCrawler extends Crawler {
         homepageSet.add("http://zhoubaotong.haodf.com/");
     }
 
+    protected DoctorHomepage doctorHomepage;
+    private int servStar = 0;
+
 
     public DoctorHomePageCrawler(Async async) {
         super(async);
+    }
+
+    public static void main(String[] args) {
+        DoctorHomePageCrawler c = new DoctorHomePageCrawler(Resource.obtainAsync());
+        for (String url : homepageSet) {
+            c.crawl(url);
+        }
     }
 
     @Override
@@ -235,7 +240,6 @@ public class DoctorHomePageCrawler extends Crawler {
         doctorHomepage.setNewYearWord(word);
     }
 
-
     private void extractHospitalID(String line) {
         String hospitalID = RegexUtils.regexFind("hospital/(\\S+).htm", line);
         if (Utils.SHOULD_PRT) System.out.println("hospitalID = " + hospitalID);
@@ -366,13 +370,6 @@ public class DoctorHomePageCrawler extends Crawler {
             doctorHomepage.setDoctorIntro(introText);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        DoctorHomePageCrawler c = new DoctorHomePageCrawler(Resource.obtainAsync());
-        for (String url : homepageSet) {
-            c.crawl(url);
         }
     }
 }

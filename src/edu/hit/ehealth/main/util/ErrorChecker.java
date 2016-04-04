@@ -15,6 +15,10 @@ public class ErrorChecker {
         reader = new ErrorDBReader();
     }
 
+    public static void main(String[] args) {
+        new ErrorChecker().showAllReasons();
+    }
+
     public void showAllReasons() {
         Set<String> errorReasons = new HashSet<String>();
         Set<ErrorMessage> shownMsgs = new HashSet<ErrorMessage>();
@@ -45,9 +49,5 @@ public class ErrorChecker {
         for (ErrorMessage em : ems) {
             System.out.println("em = " + em);
         }
-    }
-
-    public static void main(String[] args) {
-        new ErrorChecker().showAllReasons();
     }
 }

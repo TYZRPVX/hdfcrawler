@@ -20,9 +20,9 @@ import java.util.UUID;
 public class DoctorGiftCrawler extends Crawler {
 
 
-    private DoctorGift doctorGift = new DoctorGift();
     private static DoctorGiftDao giftDao =
             GlobalApplicationContext.getContext().getBean(DoctorGiftDao.class);
+    private DoctorGift doctorGift = new DoctorGift();
 
     public DoctorGiftCrawler(Async async) {
         super(async);
@@ -44,6 +44,11 @@ public class DoctorGiftCrawler extends Crawler {
             giftCrawler.crawl(giftUrl);
         }
 
+    }
+
+    public static void main(String[] args) {
+        DoctorGiftCrawler c = new DoctorGiftCrawler(Resource.obtainAsync());
+        c.crawl("http://www.haodf.com/api/doctor/DE4rO-XCoLUEiq37rPeWduCBgU/ajaxgetpresentlist.htm");
     }
 
     @Override
@@ -96,11 +101,6 @@ public class DoctorGiftCrawler extends Crawler {
                 doctorGift.setContent(giftWord);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        DoctorGiftCrawler c = new DoctorGiftCrawler(Resource.obtainAsync());
-        c.crawl("http://www.haodf.com/api/doctor/DE4rO-XCoLUEiq37rPeWduCBgU/ajaxgetpresentlist.htm");
     }
 }
 

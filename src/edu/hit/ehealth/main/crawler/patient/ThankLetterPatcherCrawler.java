@@ -18,17 +18,38 @@ import java.util.UUID;
 
 public class ThankLetterPatcherCrawler extends Crawler {
 
+    private static ThankLetterPatcherDao patcherDao =
+            GlobalApplicationContext.getContext().getBean(ThankLetterPatcherDao.class);
     private int pageCount = 1;
     private int pageNum;
+    private ThankLetterPatcher patcher = new ThankLetterPatcher();
 
     public ThankLetterPatcherCrawler(Async async) {
         super(async);
     }
 
-    private static ThankLetterPatcherDao patcherDao =
-            GlobalApplicationContext.getContext().getBean(ThankLetterPatcherDao.class);
+    public static void run() {
 
-    private ThankLetterPatcher patcher = new ThankLetterPatcher();
+        //ThankLetterPatcher
+        List<String> allLetterPatcherUrl = new ArrayList<String>();
+        for (String homepage : Resource.sPhoneDoctorHomepage) {
+            String patchUrl = homepage +
+                    "payment/ajaxshowcommentganxie?nowPage=1";
+            allLetterPatcherUrl.add(patchUrl);
+        }
+        Counter counter = Counter.newInstance();
+        ThankLetterPatcherCrawler patcherCrawler = new ThankLetterPatcherCrawler(Resource.obtainAsync());
+        for (String patcher : allLetterPatcherUrl) {
+            counter.printCrawlCountAboutPhoneHomepage(ThankLetterPatcherCrawler.class);
+            patcherCrawler.crawl(patcher);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        ThankLetterPatcherCrawler c = new ThankLetterPatcherCrawler(Resource.obtainAsync());
+        c.crawl("http://zhaoquanming.haodf.com/payment/ajaxshowcommentganxie?nowPage=1");
+    }
 
     @Override
     protected void parseContent(BufferedReader content) throws Exception {
@@ -83,28 +104,5 @@ public class ThankLetterPatcherCrawler extends Crawler {
                 patcher.setContent(content);
             }
         }
-    }
-
-    public static void run() {
-
-        //ThankLetterPatcher
-        List<String> allLetterPatcherUrl = new ArrayList<String>();
-        for (String homepage : Resource.sPhoneDoctorHomepage) {
-            String patchUrl = homepage +
-                    "payment/ajaxshowcommentganxie?nowPage=1";
-            allLetterPatcherUrl.add(patchUrl);
-        }
-        Counter counter = Counter.newInstance();
-        ThankLetterPatcherCrawler patcherCrawler = new ThankLetterPatcherCrawler(Resource.obtainAsync());
-        for (String patcher : allLetterPatcherUrl) {
-            counter.printCrawlCountAboutPhoneHomepage(ThankLetterPatcherCrawler.class);
-            patcherCrawler.crawl(patcher);
-        }
-
-    }
-
-    public static void main(String[] args) {
-        ThankLetterPatcherCrawler c = new ThankLetterPatcherCrawler(Resource.obtainAsync());
-        c.crawl("http://zhaoquanming.haodf.com/payment/ajaxshowcommentganxie?nowPage=1");
     }
 }

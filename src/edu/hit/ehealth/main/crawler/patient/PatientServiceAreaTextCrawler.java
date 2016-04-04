@@ -23,6 +23,13 @@ public class PatientServiceAreaTextCrawler extends Crawler {
         super(async);
     }
 
+    public static void main(String[] args) {
+        PatientServiceAreaTextCrawler c = new PatientServiceAreaTextCrawler(Resource.obtainAsync());
+        c.crawl("http://www.haodf.com/wenda/zhaoquanming_g_3802909492.htm");
+        c.crawl("http://www.haodf.com/wenda/surgwy_g_2098341767.htm");
+        c.crawl("http://www.haodf.com/wenda/xuyishengdr_g_4125437020.htm");
+    }
+
     @Override
     protected void parseContent(BufferedReader content) throws Exception {
 
@@ -91,7 +98,6 @@ public class PatientServiceAreaTextCrawler extends Crawler {
 
     }
 
-
     private void extractHomepageID(String line) {
         String homepageID = RegexUtils.regexFind("http://(\\S+).haodf", line);
         if (Utils.SHOULD_PRT) System.out.println("homepageID = " + homepageID);
@@ -103,12 +109,5 @@ public class PatientServiceAreaTextCrawler extends Crawler {
         if (Utils.SHOULD_PRT) System.out.println("qid = " + queryID);
         areaText.setQueryID(queryID);
 
-    }
-
-    public static void main(String[] args) {
-        PatientServiceAreaTextCrawler c = new PatientServiceAreaTextCrawler(Resource.obtainAsync());
-        c.crawl("http://www.haodf.com/wenda/zhaoquanming_g_3802909492.htm");
-        c.crawl("http://www.haodf.com/wenda/surgwy_g_2098341767.htm");
-        c.crawl("http://www.haodf.com/wenda/xuyishengdr_g_4125437020.htm");
     }
 }

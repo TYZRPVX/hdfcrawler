@@ -12,11 +12,10 @@ import java.util.Set;
 public class AbstractVOMD5 extends AbstractVO {
 
 
+    private static final long serialVersionUID = 1L;
     private static Set<String> excludeFields = new HashSet<String>(
             Arrays.asList(new String[]{"primaryId", "crawlDate", "crawlPageUrl", "md5"})
     );
-
-    private static final long serialVersionUID = 1L;
     private String md5;
 
 

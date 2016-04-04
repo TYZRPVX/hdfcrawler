@@ -21,10 +21,8 @@ import java.util.concurrent.TimeUnit;
 public class PatientClubCrawler extends Crawler {
 
     public static HashSet<String> patientClubSet = new HashSet<String>();
-    protected PatientClub patientClub;
     private static List<String> clubThreadList = new ArrayList<String>();
     private static PatientClubDao dao = null;
-    protected int pageCount = 1;
 
     static {
         dao = GlobalApplicationContext.getContext().getBean(PatientClubDao.class);
@@ -32,6 +30,8 @@ public class PatientClubCrawler extends Crawler {
 
     }
 
+    protected PatientClub patientClub;
+    protected int pageCount = 1;
     private int pageNum;
 
     public PatientClubCrawler(Async async) {
@@ -52,6 +52,14 @@ public class PatientClubCrawler extends Crawler {
         for (String club : allClubUrl) {
             counter.printCrawlCountAboutHomepage(PatientClubCrawler.class);
             clubCrawler.crawl(club); // HYHWB，每当解析到一个thread,就立刻开启thread爬虫,避免中间存储
+        }
+
+    }
+
+    public static void main(String[] args) {
+        PatientClubCrawler c = new PatientClubCrawler(Resource.obtainAsync());
+        for (String url : patientClubSet) {
+            c.crawl(url);
         }
 
     }
@@ -153,7 +161,6 @@ public class PatientClubCrawler extends Crawler {
         threadCrawler.crawl(threadUrl);
     }
 
-
     private void extractGroup(String line) {
         String group = RegexUtils.regexFind("<td><a href.+\">(.+)</a>", line);
         if (Utils.SHOULD_PRT) System.out.println("group = " + group);
@@ -164,13 +171,5 @@ public class PatientClubCrawler extends Crawler {
         String title = RegexUtils.regexFind("title=\"(.+)\">", line);
         if (Utils.SHOULD_PRT) System.out.println("title = " + title);
         patientClub.setTitle(title);
-    }
-
-    public static void main(String[] args) {
-        PatientClubCrawler c = new PatientClubCrawler(Resource.obtainAsync());
-        for (String url : patientClubSet) {
-            c.crawl(url);
-        }
-
     }
 }

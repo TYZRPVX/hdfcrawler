@@ -11,30 +11,27 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * 静态资源容器
+ * 例如{@link #sAllDoctorHomepage 反序列化后的医生列表}
+ */
+
 public class Resource {
+
+    public static Async publicAsync = Async.newInstance().use(Executors.newFixedThreadPool(20));
+    public static List<String> sAllDoctorHomepage = Utils.readObjList(TextValue.Path.doctorHomepages);
+    public static final int homepageTotalCount = sAllDoctorHomepage.size();
+    public static List<String> sAllInfoCenter = Utils.readObjList(TextValue.Path.doctorInfoCenters);
+    public static final int infoCenterTotalCount = sAllInfoCenter.size();
+    public static List<String> sPhoneDoctorHomepage = Utils.readObjList(TextValue.Path.phoneDoctors);
+    public static final int phoneDoctorHomepageTotalCount = sPhoneDoctorHomepage.size();
+    public static List<String> sHospitals = Utils.readObjList(TextValue.Path.hospitals);
+    private static WebDriver sWebDriver;
 
     public static Async obtainAsync() {
         ExecutorService threadPool = Executors.newFixedThreadPool(10);
         return Async.newInstance().use(threadPool);
     }
-
-    public static Async publicAsync = Async.newInstance().use(Executors.newFixedThreadPool(20));
-
-    public static List<String> sAllDoctorHomepage = Utils.readObjList(TextValue.Path.doctorHomepages);
-
-    public static final int homepageTotalCount = sAllDoctorHomepage.size();
-
-    public static List<String> sAllInfoCenter = Utils.readObjList(TextValue.Path.doctorInfoCenters);
-
-    public static final int infoCenterTotalCount = sAllInfoCenter.size();
-
-    public static List<String> sPhoneDoctorHomepage = Utils.readObjList(TextValue.Path.phoneDoctors);
-
-    public static final int phoneDoctorHomepageTotalCount = sPhoneDoctorHomepage.size();
-
-    public static List<String> sHospitals = Utils.readObjList(TextValue.Path.hospitals);
-
-    private static WebDriver sWebDriver;
 
     public static WebDriver getWebDriver() {
         if (sWebDriver == null) {

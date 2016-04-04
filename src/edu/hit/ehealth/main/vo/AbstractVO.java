@@ -21,6 +21,8 @@ public abstract class AbstractVO implements Serializable {
     public static final long serialVersionUID = 1L;
 
     private String primaryId;
+    private Date crawlDate;
+    private String crawlPageUrl;
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -33,10 +35,6 @@ public abstract class AbstractVO implements Serializable {
     public void setPrimaryId(String primaryId) {
         this.primaryId = primaryId;
     }
-
-    private Date crawlDate;
-
-    private String crawlPageUrl;
 
     @Column(name = "zqsj")
     public Date getCrawlDate() {

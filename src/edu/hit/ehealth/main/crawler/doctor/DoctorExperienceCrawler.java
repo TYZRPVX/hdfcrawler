@@ -19,18 +19,15 @@ import java.util.UUID;
 
 public class DoctorExperienceCrawler extends Crawler implements NextPageTracker {
 
+    private static DoctorExperienceDao experienceDao =
+            GlobalApplicationContext.getContext().getBean(DoctorExperienceDao.class);
     protected int pageCount = 1;
     private int pageNum;
-
+    private DoctorExperience experience = new DoctorExperience();
 
     public DoctorExperienceCrawler(Async async) {
         super(async);
     }
-
-    private static DoctorExperienceDao experienceDao =
-            GlobalApplicationContext.getContext().getBean(DoctorExperienceDao.class);
-
-    private DoctorExperience experience = new DoctorExperience();
 
     public static void run() {
         //KBJY
@@ -47,6 +44,13 @@ public class DoctorExperienceCrawler extends Crawler implements NextPageTracker 
             experienceCrawler.crawl(expUrl);
         }
 
+    }
+
+    public static void main(String[] args) {
+        DoctorExperienceCrawler c = new DoctorExperienceCrawler(Resource.obtainAsync());
+//        c.crawl("http://www.haodf.com/doctor/DE4r08xQdKSLBT0wXYSdpUn-8HdJ/kanbingjingyan/3.htm");
+        c.crawl("http://www.haodf.com/doctor/DE4r0BCkuHzduSNTnHT0-22oNxVxB/kanbingjingyan/1.htm");
+        //run();
     }
 
     @Override
@@ -204,12 +208,5 @@ public class DoctorExperienceCrawler extends Crawler implements NextPageTracker 
         String id = RegexUtils.regexFind("doctor/(.+)/kanbing", currentUrl);
         if (Utils.SHOULD_PRT) System.out.println("id = " + id);
         experience.setPersonInfoID(id);
-    }
-
-    public static void main(String[] args) {
-        DoctorExperienceCrawler c = new DoctorExperienceCrawler(Resource.obtainAsync());
-//        c.crawl("http://www.haodf.com/doctor/DE4r08xQdKSLBT0wXYSdpUn-8HdJ/kanbingjingyan/3.htm");
-        c.crawl("http://www.haodf.com/doctor/DE4r0BCkuHzduSNTnHT0-22oNxVxB/kanbingjingyan/1.htm");
-        //run();
     }
 }

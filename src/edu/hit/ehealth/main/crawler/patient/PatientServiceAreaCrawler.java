@@ -19,11 +19,11 @@ import java.util.List;
 public class PatientServiceAreaCrawler extends Crawler {
 
 
-    private int pageNum;
-    protected int pageCount = 1;
-    private PatientServiceArea patientServiceArea = new PatientServiceArea();
     private static PatientServiceAreaDao areaDao =
             GlobalApplicationContext.getContext().getBean(PatientServiceAreaDao.class);
+    protected int pageCount = 1;
+    private int pageNum;
+    private PatientServiceArea patientServiceArea = new PatientServiceArea();
 
 
     public PatientServiceAreaCrawler(Async async) {
@@ -44,6 +44,12 @@ public class PatientServiceAreaCrawler extends Crawler {
             counter.printCrawlCountAboutHomepage(PatientServiceAreaCrawler.class);
             areaCrawler.crawl(area); //HZFWQWB
         }
+
+    }
+
+    public static void main(String[] args) {
+        PatientServiceAreaCrawler c = new PatientServiceAreaCrawler(Resource.obtainAsync());
+        c.crawl("http://judy815.haodf.com/zixun/list.htm");
 
     }
 
@@ -97,7 +103,6 @@ public class PatientServiceAreaCrawler extends Crawler {
         pageNum = Integer.parseInt(pageNumStr);
         if (Utils.SHOULD_PRT) System.out.println("pageNum = " + pageNum);
     }
-
 
     private void extractMainBlock(String block) throws Exception {
         if (Utils.SHOULD_PRT) System.out.println("block = " + block);
@@ -193,11 +198,5 @@ public class PatientServiceAreaCrawler extends Crawler {
         PatientServiceAreaTextCrawler textCrawler = new PatientServiceAreaTextCrawler(Resource.obtainAsync());
         if (Utils.SHOULD_PRT) System.out.println("go into textCrawler " + areaTextUrl);
         textCrawler.crawl(areaTextUrl);
-    }
-
-    public static void main(String[] args) {
-        PatientServiceAreaCrawler c = new PatientServiceAreaCrawler(Resource.obtainAsync());
-        c.crawl("http://judy815.haodf.com/zixun/list.htm");
-
     }
 }

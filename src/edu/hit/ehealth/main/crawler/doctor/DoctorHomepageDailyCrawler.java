@@ -15,16 +15,23 @@ import java.util.UUID;
 
 public class DoctorHomepageDailyCrawler extends Crawler {
 
-    public DoctorHomepageDailyCrawler(Async async) {
-        super(async);
-    }
-
-    protected DoctorHomepageDaily doctorHomepageDaily;
-
     protected static DoctorHomepageDailyDao dailyDao;
 
     static {
         dailyDao = GlobalApplicationContext.getContext().getBean(DoctorHomepageDailyDao.class);
+    }
+
+    protected DoctorHomepageDaily doctorHomepageDaily;
+
+    public DoctorHomepageDailyCrawler(Async async) {
+        super(async);
+    }
+
+    public static void main(String[] args) {
+        DoctorHomepageDailyCrawler c = new DoctorHomepageDailyCrawler(Resource.obtainAsync());
+        c.crawl("http://wuyongjian.haodf.com/");
+        c.crawl("http://chenenguo.haodf.com/");
+        c.crawl("http://lixueni.haodf.com");
     }
 
     @Override
@@ -95,7 +102,6 @@ public class DoctorHomepageDailyCrawler extends Crawler {
         if (Utils.SHOULD_PRT) System.out.println("essay = " + essayNum);
     }
 
-
     private void extractPatientNum(String line) {
         String allPatientNum = RegexUtils.regexFind("orange1 pr5\">(.+)</span>", line);
         if (Utils.SHOULD_PRT) System.out.println(" allpatientNum = " + allPatientNum);
@@ -106,7 +112,6 @@ public class DoctorHomepageDailyCrawler extends Crawler {
         if (Utils.SHOULD_PRT) System.out.println("report patient = " + patientNum);
         doctorHomepageDaily.setYesterReportPatientNum(Integer.valueOf(patientNum));
     }
-
 
     private void extractInfoID(String line) {
 //        if (Utils.SHOULD_PRT) System.out.println("line = " + line);
@@ -121,13 +126,5 @@ public class DoctorHomepageDailyCrawler extends Crawler {
         Integer cnt = Integer.valueOf(visitCount);
         if (Utils.SHOULD_PRT) System.out.println("cnt = " + cnt);
         doctorHomepageDaily.setYesterVisitCount(cnt);
-    }
-
-
-    public static void main(String[] args) {
-        DoctorHomepageDailyCrawler c = new DoctorHomepageDailyCrawler(Resource.obtainAsync());
-        c.crawl("http://wuyongjian.haodf.com/");
-        c.crawl("http://chenenguo.haodf.com/");
-        c.crawl("http://lixueni.haodf.com");
     }
 }

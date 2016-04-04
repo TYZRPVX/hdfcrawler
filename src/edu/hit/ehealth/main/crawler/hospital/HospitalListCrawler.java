@@ -16,15 +16,12 @@ import java.util.List;
 public class HospitalListCrawler extends Crawler {
 
     private static String startUrl = "http://www.haodf.com/yiyuan/beijing/list.htm";
+    private static int listCount = -1;
     private boolean needCollectProvince = false;
     private boolean needCrawlProvince = false;
-
     private List<String> provinceList = new ArrayList<String>() {{
         add(startUrl);
     }}; //31 all
-
-    private static int listCount = -1;
-
     private HospitalListDao listDao =
             GlobalApplicationContext.getContext().getBean(HospitalListDao.class);
     private HospitalList hospitalList = new HospitalList();
@@ -34,6 +31,14 @@ public class HospitalListCrawler extends Crawler {
         super(async);
     }
 
+    public static void run() {
+
+        new HospitalListCrawler(Resource.obtainAsync()).crawl(startUrl);
+    }
+
+    public static void main(String[] args) {
+        run();
+    }
 
     @Override
     protected void parseContent(BufferedReader content) throws Exception {
@@ -129,14 +134,5 @@ public class HospitalListCrawler extends Crawler {
         } catch (Exception ignored) {
             ignored.printStackTrace();
         }
-    }
-
-    public static void run() {
-
-        new HospitalListCrawler(Resource.obtainAsync()).crawl(startUrl);
-    }
-
-    public static void main(String[] args) {
-        run();
     }
 }

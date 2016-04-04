@@ -60,6 +60,10 @@ public class HospitalInfo extends AbstractVOMD5 {
         return hospitalName;
     }
 
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
+    }
+
     @Column(name = "dhzxdf")
     public Integer getConsultDoctorNumber() {
         return consultDoctorNumber;
@@ -103,9 +107,5 @@ public class HospitalInfo extends AbstractVOMD5 {
 
     public void setDoctorNumber(Integer doctorNumber) {
         this.doctorNumber = doctorNumber;
-    }
-
-    public void setHospitalName(String hospitalName) {
-        this.hospitalName = hospitalName;
     }
 }

@@ -26,17 +26,14 @@ import java.util.UUID;
 public class DoctorConsultValuationCrawler extends Crawler implements NextPageTracker {
 
 
+    private static DoctorConsultValuationDao valuationDao =
+            GlobalApplicationContext.getContext().getBean(DoctorConsultValuationDao.class);
+    protected int pageCount = 1;
     private int pageNum;
-
+    private DoctorConsultValuation valuation = new DoctorConsultValuation();
     public DoctorConsultValuationCrawler(Async async) {
         super(async);
     }
-
-
-    protected int pageCount = 1;
-    private DoctorConsultValuation valuation = new DoctorConsultValuation();
-    private static DoctorConsultValuationDao valuationDao =
-            GlobalApplicationContext.getContext().getBean(DoctorConsultValuationDao.class);
 
     public static void main(String[] args) {
         DoctorConsultValuationCrawler doctorConsultValuationCrawler = new DoctorConsultValuationCrawler(Resource.obtainAsync());

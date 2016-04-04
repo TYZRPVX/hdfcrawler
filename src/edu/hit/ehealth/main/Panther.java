@@ -32,10 +32,6 @@ public class Panther {
     static Class[] everyDayClasses = new Class[]{
             DoctorDailyCrawler.class,
     };
-
-    private static Class[] oneMinuteClasses = new Class[]{
-            ErrorWiper.class,
-    };
     static Class[] everyMinutesClasses = new Class[]{
             SiteInspector.class,
     };
@@ -63,6 +59,11 @@ public class Panther {
             ThankLetterPatcherCrawler.class,
             DoctorConsultValuationCrawler.class,
     };
+    private static Class[] oneMinuteClasses = new Class[]{
+            ErrorWiper.class,
+    };
+    private static Class[] allClasses = getAllCrawlerClasses();
+    private static List<Class> lastCrawlerClasses = new ArrayList<>(Arrays.asList(allClasses));
 
     public static Class[] getAllCrawlerClasses() {
         Class[] classes = edu.hit.ehealth.main.util.ArrayUtils.concatAll(
@@ -141,12 +142,6 @@ public class Panther {
         long aDayTime = TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS);
         timer.schedule(new ConcurrentTasks(classes), Utils.getCurrentDate(), aDayTime);
     }
-
-
-    private static Class[] allClasses = getAllCrawlerClasses();
-
-    private static List<Class> lastCrawlerClasses = new ArrayList<>(Arrays.asList(allClasses));
-
 
     public static void runClassesConcurrently(Class[] classes) {
         ExecutorService exec = Executors.newCachedThreadPool();

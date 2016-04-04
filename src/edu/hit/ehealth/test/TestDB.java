@@ -16,6 +16,14 @@ public class TestDB {
         System.out.println("end");
     }
 
+    public static String longStr() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 10000; i++) {
+            sb.append("1");
+        }
+        return sb.toString();
+    }
+
     public void testTry() {
         try {
             System.out.println("1");
@@ -24,14 +32,6 @@ public class TestDB {
         } catch (Exception e) {
 
         }
-    }
-
-    public static String longStr() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 10000; i++) {
-            sb.append("1");
-        }
-        return sb.toString();
     }
 
     private void runTest() {

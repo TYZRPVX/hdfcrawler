@@ -44,6 +44,12 @@ public class DoctorEssayCrawler extends Crawler implements NextPageTracker {
 
     }
 
+    public static void main(String[] args) {
+        DoctorEssayCrawler c = new DoctorEssayCrawler(Resource.obtainAsync());
+        c.crawl("http://lixueni.haodf.com/lanmu");
+        run();
+    }
+
     @Override
     protected void parseContent(BufferedReader content) throws Exception {
 
@@ -118,7 +124,6 @@ public class DoctorEssayCrawler extends Crawler implements NextPageTracker {
         }
     }
 
-
     @Override
     public int extractPageNum(String line) {
         String pageNumStr = RegexUtils.regexFind("共&nbsp;(\\S+)&nbsp;页", line);
@@ -133,11 +138,5 @@ public class DoctorEssayCrawler extends Crawler implements NextPageTracker {
                 currentUrl.lastIndexOf("lanmu")) + "lanmu_" + pageCount;
         if (Utils.SHOULD_PRT) System.out.println("nextPageUrl = " + nextPageUrl);
         return nextPageUrl;
-    }
-
-    public static void main(String[] args) {
-        DoctorEssayCrawler c = new DoctorEssayCrawler(Resource.obtainAsync());
-        c.crawl("http://lixueni.haodf.com/lanmu");
-        run();
     }
 }

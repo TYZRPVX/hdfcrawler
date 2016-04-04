@@ -20,6 +20,9 @@ public class DoctorInfoCenter extends AbstractVO {
     private String specID;
     private String officeID;
     private String hospitalID;
+    private String allPatients;
+    private String sfPatients;
+    private String star;
 
     public String getAllPatients() {
         return allPatients;
@@ -44,10 +47,6 @@ public class DoctorInfoCenter extends AbstractVO {
     public void setStar(String star) {
         this.star = star;
     }
-
-    private String allPatients;
-    private String sfPatients;
-    private String star;
 
     public String getVisitCount() {
         return visitCount;

@@ -26,6 +26,18 @@ public class AllHospitalListCrawler extends Crawler {
         super(async);
     }
 
+    public static void run() {
+        AllHospitalListCrawler crawler = new AllHospitalListCrawler(Resource.obtainAsync());
+        List<String> provinceList = Utils.readObjList(TextValue.Path.provinces);
+        for (String p : provinceList) {
+            crawler.crawl(p);
+        }
+        Utils.writeObjList(allHospitals, TextValue.Path.hospitals);
+    }
+
+    public static void main(String[] args) {
+        run();
+    }
 
     @Override
     protected void parseContent(BufferedReader content) throws Exception {
@@ -58,18 +70,5 @@ public class AllHospitalListCrawler extends Crawler {
             if (Utils.SHOULD_PRT) System.out.println("href = " + href);
             allHospitals.add(href);
         }
-    }
-
-    public static void run() {
-        AllHospitalListCrawler crawler = new AllHospitalListCrawler(Resource.obtainAsync());
-        List<String> provinceList = Utils.readObjList(TextValue.Path.provinces);
-        for (String p : provinceList) {
-            crawler.crawl(p);
-        }
-        Utils.writeObjList(allHospitals, TextValue.Path.hospitals);
-    }
-
-    public static void main(String[] args) {
-        run();
     }
 }

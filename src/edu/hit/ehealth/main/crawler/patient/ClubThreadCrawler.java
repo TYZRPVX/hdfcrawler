@@ -18,7 +18,6 @@ import java.util.UUID;
 public class ClubThreadCrawler extends Crawler {
 
     public static HashSet<String> clubThreadSet = new HashSet<String>();
-    protected ClubThread clubThread;
     public static ClubThreadDao ctdao;
 
     static {
@@ -27,9 +26,16 @@ public class ClubThreadCrawler extends Crawler {
 
     }
 
+    protected ClubThread clubThread;
+
 
     public ClubThreadCrawler(Async async) {
         super(async);
+    }
+
+    public static void main(String[] args) {
+        ClubThreadCrawler c = new ClubThreadCrawler(Resource.obtainAsync());
+        c.crawl("http://zuofuguo.haodf.com/huanyouhui/thread/2745792677.htm");
     }
 
     @Override
@@ -123,10 +129,5 @@ public class ClubThreadCrawler extends Crawler {
         String pk = RegexUtils.regexFind("thread/(\\S+).htm", currentUrl);
         if (Utils.SHOULD_PRT) System.out.println("topic id = " + pk);
         clubThread.setTopicID(pk);
-    }
-
-    public static void main(String[] args) {
-        ClubThreadCrawler c = new ClubThreadCrawler(Resource.obtainAsync());
-        c.crawl("http://zuofuguo.haodf.com/huanyouhui/thread/2745792677.htm");
     }
 }

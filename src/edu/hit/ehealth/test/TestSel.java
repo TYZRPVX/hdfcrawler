@@ -11,12 +11,12 @@ import java.util.List;
 // 想要不弹出窗口的selenium 太难了
 public class TestSel {
 
-    private WebDriver driver;
-
     static {
         File driverFile = new File("D:\\science\\code\\haodf2\\utils\\chromedriver.exe");
         System.setProperty("webdriver.chrome.driver", driverFile.getAbsolutePath());
     }
+
+    private WebDriver driver;
 
     public static void main(String[] args) {
 //        ChromeOptions options = new ChromeOptions();

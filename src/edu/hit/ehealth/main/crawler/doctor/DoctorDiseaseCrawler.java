@@ -14,22 +14,36 @@ import java.util.Set;
 @Deprecated
 public class DoctorDiseaseCrawler extends Crawler implements NextPageTracker {
 
-    protected int pageNum;
-    protected int pageCount = 1;
-//    private DoctorDisease doctorDisease;
-//    private static DoctorDiseaseDao doctorDiseaseDao
-//            = GlobalApplicationContext.getContext().getBean(DoctorDiseaseDao.class);
-
     private static Set<String> diseaseSet = new HashSet<String>();
 
     static {
         diseaseSet.add("http://www.haodf.com/jibing/xiaoerfeiyan.htm");
     }
+//    private DoctorDisease doctorDisease;
+//    private static DoctorDiseaseDao doctorDiseaseDao
+//            = GlobalApplicationContext.getContext().getBean(DoctorDiseaseDao.class);
+
+    protected int pageNum;
+    protected int pageCount = 1;
 
     public DoctorDiseaseCrawler(Async async) {
         super(async);
     }
 
+    private static String constructUrl(String disUrl) {
+        String doctorUrl = disUrl.substring(0,
+                disUrl.lastIndexOf(".htm")) + "/daifu.htm";
+        if (Utils.SHOULD_PRT) System.out.println("doctorUrl = " + doctorUrl);
+        return doctorUrl;
+    }
+
+    public static void main(String[] args) {
+        DoctorDiseaseCrawler c = new DoctorDiseaseCrawler(Resource.obtainAsync());
+        for (String disUrl : diseaseSet) {
+            String docUrl = constructUrl(disUrl);
+            c.crawl(docUrl);
+        }
+    }
 
     @Override
     protected void parseContent(BufferedReader content) throws Exception {
@@ -62,21 +76,6 @@ public class DoctorDiseaseCrawler extends Crawler implements NextPageTracker {
         String doctorID = RegexUtils.regexFind("doctor/(\\S+).htm\" class=", line);
         if (Utils.SHOULD_PRT) System.out.println("doctorID = " + doctorID);
 //        doctorDisease.setDoctorID(doctorID);
-    }
-
-    private static String constructUrl(String disUrl) {
-        String doctorUrl = disUrl.substring(0,
-                disUrl.lastIndexOf(".htm")) + "/daifu.htm";
-        if (Utils.SHOULD_PRT) System.out.println("doctorUrl = " + doctorUrl);
-        return doctorUrl;
-    }
-
-    public static void main(String[] args) {
-        DoctorDiseaseCrawler c = new DoctorDiseaseCrawler(Resource.obtainAsync());
-        for (String disUrl : diseaseSet) {
-            String docUrl = constructUrl(disUrl);
-            c.crawl(docUrl);
-        }
     }
 
     @Override

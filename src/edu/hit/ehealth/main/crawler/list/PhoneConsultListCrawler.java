@@ -14,15 +14,25 @@ import java.util.List;
 
 public class PhoneConsultListCrawler extends Crawler implements NextPageTracker {
 
+    public static final String urlPat
+            = "http://400.haodf.com/index/search?diseasename=&province=&facultyname=&hosfaculty=&hospitalname=&nowpage=";
+    private static int pageNum;
+    private static int pageCount = 1;
+    private static List<String> phoneDoctorList = new ArrayList<String>();
     public PhoneConsultListCrawler(Async async) {
         super(async);
     }
 
-    private static int pageNum;
-    private static int pageCount = 1;
-    private static List<String> phoneDoctorList = new ArrayList<String>();
-    public static final String urlPat
-            = "http://400.haodf.com/index/search?diseasename=&province=&facultyname=&hosfaculty=&hospitalname=&nowpage=";
+    public static void run() {
+        PhoneConsultListCrawler c = new PhoneConsultListCrawler(Resource.obtainAsync());
+        for (int i = 1; i <= pageNum; i++) {
+            c.crawl(urlPat + i);
+        }
+    }
+
+    public static void main(String[] args) {
+        run();
+    }
 
     @Override
     protected void parseContent(BufferedReader content) throws Exception {
@@ -43,17 +53,6 @@ public class PhoneConsultListCrawler extends Crawler implements NextPageTracker 
         if (pageCount > pageNum) {
             Utils.writeObjList(phoneDoctorList, TextValue.Path.phoneDoctors);
         }
-    }
-
-    public static void run() {
-        PhoneConsultListCrawler c = new PhoneConsultListCrawler(Resource.obtainAsync());
-        for (int i = 1; i <= pageNum; i++) {
-            c.crawl(urlPat + i);
-        }
-    }
-
-    public static void main(String[] args) {
-        run();
     }
 
     @Override

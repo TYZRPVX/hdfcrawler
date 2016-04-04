@@ -18,17 +18,24 @@ import java.util.List;
 public class HospitalFacultyCrawler extends Crawler {
 
 
+    private static HospitalFacultyDao facultyDao
+            = GlobalApplicationContext.getContext().getBean(HospitalFacultyDao.class);
+    private HospitalFaculty hospitalFaculty = new HospitalFaculty();
     public HospitalFacultyCrawler(Async async) {
         super(async);
     }
 
-    private static HospitalFacultyDao facultyDao
-            = GlobalApplicationContext.getContext().getBean(HospitalFacultyDao.class);
-    private HospitalFaculty hospitalFaculty = new HospitalFaculty();
-
     public static void main(String[] args) {
         HospitalFacultyCrawler hospitalFacultyCrawler = new HospitalFacultyCrawler(Resource.obtainAsync());
         hospitalFacultyCrawler.crawl("http://www.haodf.com/faculty/DE4roiYGYZwExU5IqlG3HelVn.htm");
+    }
+
+    public static void run() {
+        List<String> facultys = Utils.readObjList(TextValue.Path.facultys);
+        HospitalFacultyCrawler hospitalFacultyCrawler = new HospitalFacultyCrawler(Resource.obtainAsync());
+        for (String faculty : facultys) {
+            hospitalFacultyCrawler.crawl(faculty);
+        }
     }
 
     protected void extractPrimaryID(String line) {
@@ -88,7 +95,6 @@ public class HospitalFacultyCrawler extends Crawler {
         }
     }
 
-
     private void extractAddedDocNum(String line) {
         String addedNum = RegexUtils.regexFind("大夫.+>(\\d*)</span", line);
         Integer num = Integer.valueOf(addedNum);
@@ -130,14 +136,6 @@ public class HospitalFacultyCrawler extends Crawler {
         if (Utils.SHOULD_PRT)
             System.out.println("hospID = " + hospID);
         hospitalFaculty.setHospitalID(hospID);
-    }
-
-    public static void run() {
-        List<String> facultys = Utils.readObjList(TextValue.Path.facultys);
-        HospitalFacultyCrawler hospitalFacultyCrawler = new HospitalFacultyCrawler(Resource.obtainAsync());
-        for (String faculty : facultys) {
-            hospitalFacultyCrawler.crawl(faculty);
-        }
     }
 
 }

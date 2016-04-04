@@ -48,6 +48,12 @@ public class DoctorConsultOrderCrawler extends Crawler {
         }
     }
 
+    public static void main(String[] args) {
+        DoctorConsultOrderCrawler c = new DoctorConsultOrderCrawler(Resource.obtainAsync());
+        c.crawl("http://cdxcf6.haodf.com/payment/ajaxshowtelorders");
+        //之前测试的链接写错了，应该是ajaxshowtelorders
+    }
+
     @Override
     protected void parseContent(BufferedReader content) throws Exception {
 
@@ -125,12 +131,6 @@ public class DoctorConsultOrderCrawler extends Crawler {
         String docID = RegexUtils.regexFind("http://(\\S+).haodf", currentUrl);
         if (Utils.SHOULD_PRT) System.out.println("docID = " + docID);
         consultOrder.setHomepageID(docID);
-    }
-
-    public static void main(String[] args) {
-        DoctorConsultOrderCrawler c = new DoctorConsultOrderCrawler(Resource.obtainAsync());
-        c.crawl("http://cdxcf6.haodf.com/payment/ajaxshowtelorders");
-        //之前测试的链接写错了，应该是ajaxshowtelorders
     }
 
 }

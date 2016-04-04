@@ -25,6 +25,11 @@ public class ProvinceListCrawler extends Crawler implements Serializable {
         super(async);
     }
 
+    public static void main(String[] args) {
+        ProvinceListCrawler provinceListCrawler = new ProvinceListCrawler(Resource.obtainAsync());
+        provinceListCrawler.crawl(startUrl);
+    }
+
     @Override
     protected void parseContent(BufferedReader content) throws Exception {
 
@@ -39,7 +44,6 @@ public class ProvinceListCrawler extends Crawler implements Serializable {
         String html = sb.toString();
         extractProvince(html);
     }
-
 
     private void extractProvince(String html) {
         List<String> allProvinces = new ArrayList<String>();
@@ -67,10 +71,5 @@ public class ProvinceListCrawler extends Crawler implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        ProvinceListCrawler provinceListCrawler = new ProvinceListCrawler(Resource.obtainAsync());
-        provinceListCrawler.crawl(startUrl);
     }
 }

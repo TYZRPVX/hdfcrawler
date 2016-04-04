@@ -32,26 +32,6 @@ public class ErrorWiper {
         return INSTANCE;
     }
 
-    private void wiperAllError() throws ExecutionException, InterruptedException {
-        Iterable<ErrorMessage> allErrorMsg = reader.getAllErrorMsg();
-        List<ErrorMessage> dupErrorMsg = new ArrayList<>();
-        ExecutorService threadPool = Executors.newFixedThreadPool(10);
-        HashSet<Future<String>> futures = new HashSet<>();
-        for (ErrorMessage errorMessage : allErrorMsg) {
-            dupErrorMsg.add(errorMessage);
-            reader.deleteErrorMsg(errorMessage);
-        }
-        for (ErrorMessage errorMessage : dupErrorMsg) {
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    reCrawl(errorMessage);
-                }
-            };
-            threadPool.execute(runnable);
-        }
-    }
-
     private static void reCrawl(ErrorMessage errorMessage) {
         try {
             ErrorAvenger.getInstance(errorMessage).
@@ -73,5 +53,25 @@ public class ErrorWiper {
 
     public static void main(String[] args) {
         run();
+    }
+
+    private void wiperAllError() throws ExecutionException, InterruptedException {
+        Iterable<ErrorMessage> allErrorMsg = reader.getAllErrorMsg();
+        List<ErrorMessage> dupErrorMsg = new ArrayList<>();
+        ExecutorService threadPool = Executors.newFixedThreadPool(10);
+        HashSet<Future<String>> futures = new HashSet<>();
+        for (ErrorMessage errorMessage : allErrorMsg) {
+            dupErrorMsg.add(errorMessage);
+            reader.deleteErrorMsg(errorMessage);
+        }
+        for (ErrorMessage errorMessage : dupErrorMsg) {
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    reCrawl(errorMessage);
+                }
+            };
+            threadPool.execute(runnable);
+        }
     }
 }

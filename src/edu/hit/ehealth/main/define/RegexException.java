@@ -1,4 +1,4 @@
-package edu.hit.ehealth.main.exceptions;
+package edu.hit.ehealth.main.define;
 
 public class RegexException extends RuntimeException {
 

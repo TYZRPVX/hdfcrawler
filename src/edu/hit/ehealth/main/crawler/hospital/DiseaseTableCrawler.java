@@ -18,17 +18,14 @@ public class DiseaseTableCrawler extends Crawler {
 
 
     private static Set<String> specUrlSet = new HashSet<String>();
-
+    DiseaseTableDao diseaseTableDao =
+            GlobalApplicationContext.getContext().getBean(DiseaseTableDao.class);
     private DiseaseTable diseaseTable;
+
 
     public DiseaseTableCrawler(Async async) {
         super(async);
     }
-
-
-    DiseaseTableDao diseaseTableDao =
-            GlobalApplicationContext.getContext().getBean(DiseaseTableDao.class);
-
 
     private static void crawlAllSpecDis() {
         String line = null;
@@ -47,6 +44,19 @@ public class DiseaseTableCrawler extends Crawler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void run() {
+        crawlAllSpecDis();
+        Crawler c = new DiseaseTableCrawler(Resource.obtainAsync());
+        for (String url : specUrlSet) {
+            if (Utils.SHOULD_PRT) System.out.println("url = " + url);
+            c.crawl(url);
+        }
+    }
+
+    public static void main(String[] args) {
+        run();
     }
 
     @Override
@@ -84,19 +94,5 @@ public class DiseaseTableCrawler extends Crawler {
         String disName = RegexUtils.regexFind("target=\"_blank\".+>(.+)</a>", line);
         if (Utils.SHOULD_PRT) System.out.println("disName = " + disName);
         diseaseTable.setDisName(disName);
-    }
-
-    public static void run() {
-        crawlAllSpecDis();
-        Crawler c = new DiseaseTableCrawler(Resource.obtainAsync());
-        for (String url : specUrlSet) {
-            if (Utils.SHOULD_PRT) System.out.println("url = " + url);
-            c.crawl(url);
-        }
-    }
-
-
-    public static void main(String[] args) {
-        run();
     }
 }

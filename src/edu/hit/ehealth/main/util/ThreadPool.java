@@ -8,10 +8,6 @@ public class ThreadPool {
     private static final int MAX_QUEUE_SIZE = 20;
     private Queue<HandlerTask> threadQueue;
 
-    public interface HandlerTask extends Runnable {
-        void run();
-    }
-
     public ThreadPool() {
         threadQueue = new SynchronousQueue<>();
     }
@@ -20,5 +16,9 @@ public class ThreadPool {
         if (threadQueue.size() < MAX_QUEUE_SIZE) {
             threadQueue.add(task);
         }
+    }
+
+    public interface HandlerTask extends Runnable {
+        void run();
     }
 }

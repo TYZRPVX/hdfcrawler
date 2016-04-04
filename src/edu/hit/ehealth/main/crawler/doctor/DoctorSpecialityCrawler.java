@@ -16,6 +16,11 @@ public class DoctorSpecialityCrawler extends Crawler {
         super(async);
     }
 
+    public static void main(String[] args) {
+        DoctorSpecialityCrawler c = new DoctorSpecialityCrawler(Resource.obtainAsync());
+        c.crawl("http://www.haodf.com/faculty/DE4roiYGYZwExU5IqlG3HelVn.htm");
+    }
+
     @Override
     protected void parseContent(BufferedReader content) throws Exception {
 
@@ -96,10 +101,5 @@ public class DoctorSpecialityCrawler extends Crawler {
 
     private void extractPrimaryKey(String currentUrl) {
         String pk = RegexUtils.regexFind("faculty/(\\S+).htm", currentUrl);
-    }
-
-    public static void main(String[] args) {
-        DoctorSpecialityCrawler c = new DoctorSpecialityCrawler(Resource.obtainAsync());
-        c.crawl("http://www.haodf.com/faculty/DE4roiYGYZwExU5IqlG3HelVn.htm");
     }
 }

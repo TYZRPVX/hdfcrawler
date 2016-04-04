@@ -21,17 +21,23 @@ import java.util.List;
 public class SpecialityListCrawler extends Crawler {
 
 
+    SpecialityListDao listDao =
+            GlobalApplicationContext.getContext().getBean(SpecialityListDao.class);
+    SpecialityList specialityList = new SpecialityList();
     private List<String> allSpecialitys = new ArrayList<String>();
 
     public SpecialityListCrawler(Async async) {
         super(async);
     }
 
+    public static void run() {
+        SpecialityListCrawler c = new SpecialityListCrawler(Resource.obtainAsync());
+        c.crawl("http://www.haodf.com/keshi/list.htm");
+    }
 
-    SpecialityListDao listDao =
-            GlobalApplicationContext.getContext().getBean(SpecialityListDao.class);
-
-    SpecialityList specialityList = new SpecialityList();
+    public static void main(String[] args) {
+        run();
+    }
 
     @Override
     protected void parseContent(BufferedReader content) throws Exception {
@@ -59,14 +65,5 @@ public class SpecialityListCrawler extends Crawler {
         }
 
         Utils.writeObjList(allSpecialitys, TextValue.Path.specialitys);
-    }
-
-    public static void run() {
-        SpecialityListCrawler c = new SpecialityListCrawler(Resource.obtainAsync());
-        c.crawl("http://www.haodf.com/keshi/list.htm");
-    }
-
-    public static void main(String[] args) {
-        run();
     }
 }

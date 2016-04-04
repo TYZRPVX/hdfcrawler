@@ -9,6 +9,8 @@ import java.util.List;
 public class Counter {
 
     private static final int NEAR_DEFINITION = 2000;
+    private static Class[] allClasses = Panther.getAllCrawlerClasses();
+    private static List<Class> lastCrawlerClasses = new ArrayList<>(Arrays.asList(allClasses));
     private int count;
 
     private Counter() {
@@ -18,10 +20,6 @@ public class Counter {
     public static Counter newInstance() {
         return new Counter();
     }
-
-    private static Class[] allClasses = Panther.getAllCrawlerClasses();
-
-    private static List<Class> lastCrawlerClasses = new ArrayList<>(Arrays.asList(allClasses));
 
     public static void reportCrawlCount(Class clazz, int count, int total) {
         System.out.println("[Crawler Name]:" + clazz.getSimpleName() + " [count]:" + count + " [total]:" + total);

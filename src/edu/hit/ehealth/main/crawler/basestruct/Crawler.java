@@ -2,7 +2,7 @@ package edu.hit.ehealth.main.crawler.basestruct;
 
 import edu.hit.ehealth.main.dao.ErrorMessageDao;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
-import edu.hit.ehealth.main.exceptions.RegexException;
+import edu.hit.ehealth.main.define.RegexException;
 import edu.hit.ehealth.main.util.AntiCrawlerHacker;
 import edu.hit.ehealth.main.util.Utils;
 import edu.hit.ehealth.main.vo.ErrorMessage;
@@ -19,14 +19,13 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class Crawler implements CrawlBehavior {
 
+    public static final int CYCLE_RETRY_TIMES = 2;
     private static ErrorMessageDao errorMessageDao;
 
     static {
         errorMessageDao = GlobalApplicationContext
                 .getContext().getBean(ErrorMessageDao.class);
     }
-
-    public static final int CYCLE_RETRY_TIMES = 2;
 
     ErrorMessage mErrorMessage = new ErrorMessage();
     private Async mAsync;
@@ -37,12 +36,20 @@ public abstract class Crawler implements CrawlBehavior {
         this.mAsync = async;
     }
 
+    /**
+     * @return 当前爬取的网页url
+     */
     protected String trackPageUrl() {
         return this.currentUrl;
     }
 
     protected abstract void parseContent(BufferedReader content) throws Exception;
 
+    /**
+     * {@link #crawl(String)} 中捕获到的异常部分会被记录到数据库中
+     *
+     * @param throwable
+     */
     private void logException(Throwable throwable) {
         throwable.printStackTrace();
         mErrorMessage.setCrawlPageUrl(trackPageUrl());
@@ -76,6 +83,12 @@ public abstract class Crawler implements CrawlBehavior {
         throw new NullPointerException();
     }
 
+
+    /**
+     * 多次轮询url，获取网页源代码，并分发给子类爬虫的 {@link #parseContent(BufferedReader)}
+     *
+     * @param url 将要爬取网页链接
+     */
     public void crawl(String url) {
         this.currentUrl = url;
         try (BufferedReader br = cycleReTryFetch(url)) {

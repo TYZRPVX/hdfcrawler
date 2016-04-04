@@ -3,7 +3,7 @@ package edu.hit.ehealth.main.crawler.patient;
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.patient.ThankLetterDao;
-import edu.hit.ehealth.main.exceptions.RegexException;
+import edu.hit.ehealth.main.define.RegexException;
 import edu.hit.ehealth.main.util.Counter;
 import edu.hit.ehealth.main.util.RegexUtils;
 import edu.hit.ehealth.main.util.Resource;
@@ -19,11 +19,10 @@ import java.util.UUID;
 
 public class ThankLetterCrawler extends Crawler {
 
-    private int pageNum;
-    protected int pageCount = 1;
-
     private static ThankLetterDao letterDao =
             GlobalApplicationContext.getContext().getBean(ThankLetterDao.class);
+    protected int pageCount = 1;
+    private int pageNum;
     private ThankLetter thankLetter = new ThankLetter();
 
 
@@ -48,6 +47,13 @@ public class ThankLetterCrawler extends Crawler {
         }
 
 
+    }
+
+    public static void main(String[] args) {
+
+        ThankLetterCrawler c = new ThankLetterCrawler(Resource.obtainAsync());
+        c.crawl("http://www.haodf.com/doctor/DE4r08xQdKSLBT0wXYSdpUn-8HdJ/ganxiexin/1.htm");
+        run();
     }
 
     @Override
@@ -182,13 +188,5 @@ public class ThankLetterCrawler extends Crawler {
         String docID = RegexUtils.regexFind("doctor/(\\S+)/gan", currentUrl);
         if (Utils.SHOULD_PRT) System.out.println("docID = " + docID);
         thankLetter.setPersonInfoID(docID);
-    }
-
-
-    public static void main(String[] args) {
-
-        ThankLetterCrawler c = new ThankLetterCrawler(Resource.obtainAsync());
-        c.crawl("http://www.haodf.com/doctor/DE4r08xQdKSLBT0wXYSdpUn-8HdJ/ganxiexin/1.htm");
-        run();
     }
 }

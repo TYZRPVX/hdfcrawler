@@ -12,11 +12,14 @@ import java.util.List;
 
 public class FacultyListCrawler extends Crawler {
 
+    List<String> facultyList = new ArrayList<String>();
+
     public FacultyListCrawler(Async async) {
         super(async);
     }
 
-    List<String> facultyList = new ArrayList<String>();
+    public static void main(String[] args) {
+    }
 
     @Override
     protected void parseContent(BufferedReader content) throws Exception {
@@ -46,8 +49,5 @@ public class FacultyListCrawler extends Crawler {
             crawl(hospital);
         }
         Utils.writeObjList(facultyList, TextValue.Path.facultys);
-    }
-
-    public static void main(String[] args) {
     }
 }
