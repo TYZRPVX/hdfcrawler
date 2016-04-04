@@ -1,4 +1,4 @@
-package edu.hit.ehealth.main.util;
+package edu.hit.ehealth.main;
 
 import edu.hit.ehealth.main.crawler.doctor.*;
 import edu.hit.ehealth.main.crawler.hospital.*;
@@ -7,11 +7,18 @@ import edu.hit.ehealth.main.crawler.patient.PatientServiceAreaCrawler;
 import edu.hit.ehealth.main.crawler.patient.ThankLetterCrawler;
 import edu.hit.ehealth.main.crawler.patient.ThankLetterPatcherCrawler;
 import edu.hit.ehealth.main.erroravenger.ErrorWiper;
+import edu.hit.ehealth.main.util.Runner;
+import edu.hit.ehealth.main.util.SiteInspector;
+import edu.hit.ehealth.main.util.Utils;
 import edu.hit.ehealth.main.util.mail.Mailer;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.util.*;
 import java.util.concurrent.*;
+
+/**
+ *
+ */
 
 public class Panther {
 
