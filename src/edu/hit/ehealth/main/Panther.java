@@ -17,7 +17,9 @@ import java.util.*;
 import java.util.concurrent.*;
 
 /**
- *
+ * 用于并发运行{@link edu.hit.ehealth.main.crawler}爬虫以及{@link SiteInspector 网络环境监控器} {@link ErrorWiper 错误修复器}
+ * 设置定时效果，例如{@link #runClassesOneMinuteConcurrently(Class[])}
+ * 分发爬虫
  */
 
 public class Panther {
