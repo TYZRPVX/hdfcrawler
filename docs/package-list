@@ -10,7 +10,6 @@ edu.hit.ehealth.main.dao.hospital
 edu.hit.ehealth.main.dao.patient
 edu.hit.ehealth.main.define
 edu.hit.ehealth.main.erroravenger
-edu.hit.ehealth.main.exceptions
 edu.hit.ehealth.main.util
 edu.hit.ehealth.main.util.mail
 edu.hit.ehealth.main.vo
