@@ -1,12 +1,13 @@
 package edu.hit.ehealth.main.crawler.doctor;
 /*修复了疗效、态度、治疗方式有乱码的问题,部分记录有空的字段，是因为网页数据确实是空的*/
+
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.crawler.basestruct.NextPageTracker;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.doctor.DoctorExperienceDao;
-import edu.hit.ehealth.main.util.Resource;
 import edu.hit.ehealth.main.util.Counter;
 import edu.hit.ehealth.main.util.RegexUtils;
+import edu.hit.ehealth.main.util.Resource;
 import edu.hit.ehealth.main.util.Utils;
 import edu.hit.ehealth.main.vo.doctor.DoctorExperience;
 import org.apache.http.client.fluent.Async;
@@ -103,16 +104,15 @@ public class DoctorExperienceCrawler extends Crawler implements NextPageTracker 
                 experience.setFromCity(city);
             }
             if (line.contains("<span>疾病")) {
-            	if(line.contains("href")){
-            		String disease = RegexUtils.regexFind(".+none;\">(\\S+)</a>", line);
-            		System.out.println("disease = " + disease);
-            		experience.setDisease(disease);
-            	}
-            	else{
-            		String disease = RegexUtils.regexFind(".+span>(.*)</td>", line);
-            		System.out.println("disease = " + disease);
-            		experience.setDisease(disease);
-            	}
+                if (line.contains("href")) {
+                    String disease = RegexUtils.regexFind(".+none;\">(\\S+)</a>", line);
+                    System.out.println("disease = " + disease);
+                    experience.setDisease(disease);
+                } else {
+                    String disease = RegexUtils.regexFind(".+span>(.*)</td>", line);
+                    System.out.println("disease = " + disease);
+                    experience.setDisease(disease);
+                }
                /* if (Utils.SHOULD_PRT) System.out.println("disease = " + disease);
                 experience.setDisease(disease);*/
             }
@@ -124,38 +124,36 @@ public class DoctorExperienceCrawler extends Crawler implements NextPageTracker 
             if (line.contains("width=\"34%\">疗效")) {
                 String effect1 = RegexUtils.regexFind("class=\"orange\">(.+)</span>", line);
                 String effect2 = RegexUtils.regexFind("class=\"gray\">(.+)</span>", line);
-                
-                if(effect1.length() > effect2.length()) experience.setEffect(effect2);
+
+                if (effect1.length() > effect2.length()) experience.setEffect(effect2);
                 else experience.setEffect(effect1);
 //                String effect = line;
               /*  if (Utils.SHOULD_PRT) System.out.println("effect = " + effect);
                 experience.setEffect(effect);*/
             }
             if (line.contains("width=\"34%\">态度")) {
-            	String attitude1 = RegexUtils.regexFind("class=\"orange\">(.+)</span>", line);
+                String attitude1 = RegexUtils.regexFind("class=\"orange\">(.+)</span>", line);
                 String attitude2 = RegexUtils.regexFind("class=\"gray\">(.+)</span>", line);
-                
-                if(attitude1.length() > attitude2.length()) {
-                	experience.setAttitude(attitude2);
+
+                if (attitude1.length() > attitude2.length()) {
+                    experience.setAttitude(attitude2);
 //                	System.out.println("attitude = " + attitude2);
-                }
-                else {
-                	
-                	experience.setAttitude(attitude1);
+                } else {
+
+                    experience.setAttitude(attitude1);
 //                	System.out.println("attitude = " + attitude1);
-                	}
+                }
 //                String attitude = RegexUtils.regexFind("class=\"orange\">(.+)</span>", line);
 //                String attitude = line;
   /*              if (Utils.SHOULD_PRT) System.out.println("attitude = " + attitude);
                 experience.setAttitude(attitude);*/
             }
             if (line.contains("class=gray>治疗方式")) {
-                if(line.contains("未填")){
-                	experience.setCureMethod("未填");
-                }
-                else{
-                	String cureMethod = RegexUtils.regexFind("class=gray>治疗方式：</span>(.+)<br>", line);
-                	experience.setCureMethod(cureMethod);
+                if (line.contains("未填")) {
+                    experience.setCureMethod("未填");
+                } else {
+                    String cureMethod = RegexUtils.regexFind("class=gray>治疗方式：</span>(.+)<br>", line);
+                    experience.setCureMethod(cureMethod);
                 }
             }
             if (line.contains("class=\"spacejy\">")) {

@@ -12,7 +12,7 @@ public class ReflectUtils {
         List<String> parameterNames = new ArrayList<>();
 
         for (Parameter parameter : parameters) {
-            if(!parameter.isNamePresent()) {
+            if (!parameter.isNamePresent()) {
                 throw new IllegalArgumentException("Parameter names are not present!");
             }
 

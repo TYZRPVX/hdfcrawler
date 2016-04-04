@@ -2,18 +2,13 @@ package edu.hit.ehealth.main.crawler.basestruct;
 
 import edu.hit.ehealth.main.dao.ErrorMessageDao;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
-import edu.hit.ehealth.main.util.Resource;
 import edu.hit.ehealth.main.util.AntiCrawlerHacker;
+import edu.hit.ehealth.main.util.Resource;
 import edu.hit.ehealth.main.util.Utils;
 import edu.hit.ehealth.main.vo.ErrorMessage;
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.http.client.fluent.Async;
-import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
 
-import java.io.IOException;
-import java.util.Properties;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public abstract class DynamicContentCrawler implements CrawlBehavior {

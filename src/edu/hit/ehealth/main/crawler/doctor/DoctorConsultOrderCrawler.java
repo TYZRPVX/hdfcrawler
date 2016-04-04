@@ -1,5 +1,6 @@
 package edu.hit.ehealth.main.crawler.doctor;
 //注意测试的链接。程序没有问题
+
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.doctor.DoctorConsultOrderDao;
@@ -65,7 +66,7 @@ public class DoctorConsultOrderCrawler extends Crawler {
             if (isBlock && line.contains("<em class=\"thankFeedBack cp blue4\">")) {
                 isBlock = false;
                 extractOrderBlock(orderBlock.toString());
-                System.out.println("orderBlock "+orderBlock.toString());
+                System.out.println("orderBlock " + orderBlock.toString());
                 orderBlock.setLength(0);
                 consultOrder.setCrawlPageUrl(trackPageUrl());
                 consultOrder.setCrawlDate(Utils.getCurrentDate());

@@ -1,13 +1,10 @@
 package edu.hit.ehealth.main.util;
 
-import edu.hit.ehealth.main.exceptions.RegexException;
 import edu.hit.ehealth.main.util.mail.Mailer;
-import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

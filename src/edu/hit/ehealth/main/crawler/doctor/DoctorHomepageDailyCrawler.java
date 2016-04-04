@@ -34,7 +34,7 @@ public class DoctorHomepageDailyCrawler extends Crawler {
         doctorHomepageDaily.setCrawlDate(Utils.getCurrentDate());
         doctorHomepageDaily.setCrawlPageUrl(trackPageUrl());
         doctorHomepageDaily.setPrimaryId(UUID.randomUUID().toString());
-        
+
 
         String line = null;
         boolean isCrawlID = false;

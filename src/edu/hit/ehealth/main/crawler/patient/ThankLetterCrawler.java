@@ -5,11 +5,10 @@ import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.patient.ThankLetterDao;
 import edu.hit.ehealth.main.exceptions.RegexException;
 import edu.hit.ehealth.main.util.Counter;
-import edu.hit.ehealth.main.util.Resource;
 import edu.hit.ehealth.main.util.RegexUtils;
+import edu.hit.ehealth.main.util.Resource;
 import edu.hit.ehealth.main.util.Utils;
 import edu.hit.ehealth.main.vo.patient.ThankLetter;
-
 import org.apache.http.client.fluent.Async;
 
 import java.io.BufferedReader;
@@ -131,28 +130,27 @@ public class ThankLetterCrawler extends Crawler {
             if (line.contains("width=\"34%\">疗效")) {
                 String effect1 = RegexUtils.regexFind("class=\"orange\">(.+)</span>", line);
                 String effect2 = RegexUtils.regexFind("class=\"gray\">(.+)</span>", line);
-                
-                if(effect1.length() > effect2.length()) thankLetter.setEffect(effect2);
+
+                if (effect1.length() > effect2.length()) thankLetter.setEffect(effect2);
                 else thankLetter.setEffect(effect1);
 /*            if (line.contains("width=\"34%\">态度")) {
                 String attitude = RegexUtils.regexFind("class=\"orange\">(\\S+)</span>", line);
                 if (Utils.SHOULD_PRT) System.out.println("attitude = " + attitude);
                 thankLetter.setAttitude(attitude);*/
             }
-                if (line.contains("width=\"34%\">态度")) {
-                	String attitude1 = RegexUtils.regexFind("class=\"orange\">(.+)</span>", line);
-                    String attitude2 = RegexUtils.regexFind("class=\"gray\">(.+)</span>", line);
-                    
-                    if(attitude1.length() > attitude2.length()) {
-                    	thankLetter.setAttitude(attitude2);
+            if (line.contains("width=\"34%\">态度")) {
+                String attitude1 = RegexUtils.regexFind("class=\"orange\">(.+)</span>", line);
+                String attitude2 = RegexUtils.regexFind("class=\"gray\">(.+)</span>", line);
+
+                if (attitude1.length() > attitude2.length()) {
+                    thankLetter.setAttitude(attitude2);
 //                    	System.out.println("attitude = " + attitude2);
-                    }
-                    else {
-                    	
-                    	thankLetter.setAttitude(attitude1);
+                } else {
+
+                    thankLetter.setAttitude(attitude1);
 //                    	System.out.println("attitude = " + attitude1);
-                    	} 
                 }
+            }
             if (line.contains("class=\"spacejy\">")) {
                 isContent = true;
             } else if (isContent) {

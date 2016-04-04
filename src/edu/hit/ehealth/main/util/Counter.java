@@ -1,7 +1,5 @@
 package edu.hit.ehealth.main.util;
 
-import edu.hit.ehealth.main.util.mail.Mailer;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +17,7 @@ public class Counter {
         return new Counter();
     }
 
-    private static Class[] allClasses = Clocker.getAllCrawlerClasses();
+    private static Class[] allClasses = Panther.getAllCrawlerClasses();
 
     private static List<Class> lastCrawlerClasses = new ArrayList<>(Arrays.asList(allClasses));
 

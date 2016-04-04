@@ -4,9 +4,9 @@ package edu.hit.ehealth.main.crawler.doctor;
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.doctor.DoctorGiftDao;
+import edu.hit.ehealth.main.util.Counter;
 import edu.hit.ehealth.main.util.RegexUtils;
 import edu.hit.ehealth.main.util.Resource;
-import edu.hit.ehealth.main.util.Counter;
 import edu.hit.ehealth.main.util.Utils;
 import edu.hit.ehealth.main.vo.doctor.DoctorGift;
 import org.apache.http.client.fluent.Async;
@@ -87,7 +87,7 @@ public class DoctorGiftCrawler extends Crawler {
             if (line.contains("class=\"gray\">时间")) {
                 String dateStr = RegexUtils.regexFind("时间：(.+)</tr>", line);
                 if (Utils.SHOULD_PRT) System.out.println("dateStr = " + dateStr);
-               // String date = Utils.noWayParseDateText(line);
+                // String date = Utils.noWayParseDateText(line);
                 doctorGift.setDate(dateStr);
             }
             if (line.contains("<div class=\"fb mt5 f14\">")) {

@@ -25,8 +25,8 @@ public abstract class AbstractVO implements Serializable {
     private String primaryId;
 
     /**
-     * @See UUIDHexGenerator
      * @return
+     * @See UUIDHexGenerator
      */
     @Id
     @GeneratedValue(generator = "uuid2")

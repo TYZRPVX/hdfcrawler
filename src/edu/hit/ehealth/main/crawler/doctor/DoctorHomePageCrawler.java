@@ -1,6 +1,7 @@
 package edu.hit.ehealth.main.crawler.doctor;
 //ysgrwz 缺的四个字段找不到,
 /*修复了opentime 存在乱码的问题*/
+
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.doctor.DoctorHomepageDao;
@@ -198,7 +199,7 @@ public class DoctorHomePageCrawler extends Crawler {
     }
 
     private void extractPK(String line) {
-    	//加了个 .+
+        //加了个 .+
         String pk = RegexUtils.regexFind(".+space_b_url\">(\\S+).haodf.com</span>", line);
         if (Utils.SHOULD_PRT) System.out.println("pk = " + pk);
         doctorHomepage.setPrimaryId(pk);

@@ -1,9 +1,7 @@
 package edu.hit.ehealth.main.util;
 
-import com.mchange.v1.lang.TVLUtils;
 import edu.hit.ehealth.main.dao.ErrorMessageDao;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
-import edu.hit.ehealth.main.define.TextValue;
 import edu.hit.ehealth.main.vo.ErrorMessage;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -16,7 +14,10 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
 
 
 public class Utils {

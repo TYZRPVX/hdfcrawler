@@ -2,7 +2,6 @@ package edu.hit.ehealth.test;
 
 import edu.hit.ehealth.main.crawler.doctor.DoctorDailyCrawler;
 import edu.hit.ehealth.main.crawler.doctor.DoctorExperienceCrawler;
-import edu.hit.ehealth.main.util.Clocker;
 import edu.hit.ehealth.main.util.Counter;
 
 import java.util.ArrayList;

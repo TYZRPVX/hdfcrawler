@@ -1,8 +1,8 @@
 package edu.hit.ehealth.main.crawler.doctor;
 
-import edu.hit.ehealth.main.util.Resource;
-import edu.hit.ehealth.main.util.Counter;
 import edu.hit.ehealth.main.define.TextValue;
+import edu.hit.ehealth.main.util.Counter;
+import edu.hit.ehealth.main.util.Resource;
 import edu.hit.ehealth.main.util.Utils;
 
 import java.util.List;

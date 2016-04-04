@@ -78,12 +78,12 @@ public class MailSender {
 
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(mailInfo.getToAddress()));
-           message.setSubject(mailInfo.getSubject());
-           BodyPart messageBodyPart = new MimeBodyPart();
-           messageBodyPart.setText(mailInfo.getContent());
-           Multipart multipart = new MimeMultipart();
-           multipart.addBodyPart(messageBodyPart);
-           // Part two is attachment
+            message.setSubject(mailInfo.getSubject());
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText(mailInfo.getContent());
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
+            // Part two is attachment
             //XXX: uncomment to send log file
 //            messageBodyPart = new MimeBodyPart();
 //            String filename = TextValue.Path.errorlog;

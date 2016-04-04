@@ -2,7 +2,6 @@ package edu.hit.ehealth.main.util;
 
 import edu.hit.ehealth.main.define.TextValue;
 import org.apache.http.client.fluent.Async;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;

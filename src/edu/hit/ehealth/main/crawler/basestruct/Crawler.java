@@ -10,21 +10,12 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.http.client.fluent.Async;
 import org.apache.http.client.fluent.Content;
 import org.apache.http.client.fluent.Request;
-import org.apache.log4j.PropertyConfigurator;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.Properties;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 public abstract class Crawler implements CrawlBehavior {
 

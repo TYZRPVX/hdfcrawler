@@ -1,11 +1,12 @@
 package edu.hit.ehealth.main.crawler.patient;
 /*修复了最后发表有乱码的问题*/
+
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.patient.PatientServiceAreaDao;
+import edu.hit.ehealth.main.util.Counter;
 import edu.hit.ehealth.main.util.RegexUtils;
 import edu.hit.ehealth.main.util.Resource;
-import edu.hit.ehealth.main.util.Counter;
 import edu.hit.ehealth.main.util.Utils;
 import edu.hit.ehealth.main.vo.patient.PatientServiceArea;
 import org.apache.http.client.fluent.Async;
@@ -197,6 +198,6 @@ public class PatientServiceAreaCrawler extends Crawler {
     public static void main(String[] args) {
         PatientServiceAreaCrawler c = new PatientServiceAreaCrawler(Resource.obtainAsync());
         c.crawl("http://judy815.haodf.com/zixun/list.htm");
-        
+
     }
 }

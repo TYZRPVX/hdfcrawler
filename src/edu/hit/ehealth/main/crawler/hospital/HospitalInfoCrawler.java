@@ -1,5 +1,6 @@
 package edu.hit.ehealth.main.crawler.hospital;
 //解决了地址乱码问题，JHDF，JHHZ找不到
+
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.hospital.HospitalInfoDao;

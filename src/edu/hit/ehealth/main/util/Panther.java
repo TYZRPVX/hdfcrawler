@@ -1,8 +1,6 @@
 package edu.hit.ehealth.main.util;
 
 import edu.hit.ehealth.main.crawler.doctor.*;
-import edu.hit.ehealth.main.crawler.doctor.DoctorDailyCrawler;
-import edu.hit.ehealth.main.crawler.doctor.DoctorInfoAndHomeCrawler;
 import edu.hit.ehealth.main.crawler.hospital.*;
 import edu.hit.ehealth.main.crawler.patient.PatientClubCrawler;
 import edu.hit.ehealth.main.crawler.patient.PatientServiceAreaCrawler;
@@ -15,7 +13,7 @@ import org.apache.commons.lang.ArrayUtils;
 import java.util.*;
 import java.util.concurrent.*;
 
-public class Clocker {
+public class Panther {
 
     static Class[] mustExistClasses = new Class[]{
 //            AllHospitalListCrawler.class,

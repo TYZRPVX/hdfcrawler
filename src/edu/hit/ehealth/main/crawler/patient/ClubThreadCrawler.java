@@ -1,5 +1,6 @@
 package edu.hit.ehealth.main.crawler.patient;
 /*修复了发表时间的问题*/
+
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.patient.ClubThreadDao;
@@ -104,7 +105,7 @@ public class ClubThreadCrawler extends Crawler {
     }
 
     private void extractPostDate(String line) throws ParseException {
-       
+
         String dateStr = RegexUtils.regexFind(".+于：(.+)</p>", line);
         if (Utils.SHOULD_PRT) System.out.println("datestr = " + dateStr);
         //String date = Utils.noWayParseDateText(line);

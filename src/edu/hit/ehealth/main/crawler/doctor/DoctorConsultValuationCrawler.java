@@ -1,12 +1,13 @@
 package edu.hit.ehealth.main.crawler.doctor;
 //服务评价表两个字段找不到
+
 import edu.hit.ehealth.main.crawler.basestruct.Crawler;
 import edu.hit.ehealth.main.crawler.basestruct.NextPageTracker;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.dao.doctor.DoctorConsultValuationDao;
 import edu.hit.ehealth.main.util.Counter;
-import edu.hit.ehealth.main.util.Resource;
 import edu.hit.ehealth.main.util.RegexUtils;
+import edu.hit.ehealth.main.util.Resource;
 import edu.hit.ehealth.main.util.Utils;
 import edu.hit.ehealth.main.vo.doctor.DoctorConsultValuation;
 import org.apache.http.client.fluent.Async;

@@ -83,12 +83,12 @@ public class PatientServiceAreaTextCrawler extends Crawler {
     }
 
     private void extractPostDate(String line) throws ParseException {
-    	
-    	String dateStr = RegexUtils.regexFind(".+于：(.+).+", line);
+
+        String dateStr = RegexUtils.regexFind(".+于：(.+).+", line);
         if (Utils.SHOULD_PRT) System.out.println("dateStr = " + dateStr);
         areaText.setPostDateStr(dateStr);
-        
-        
+
+
     }
 
 

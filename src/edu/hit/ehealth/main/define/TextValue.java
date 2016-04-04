@@ -2,7 +2,7 @@ package edu.hit.ehealth.main.define;
 
 /**
  * @author TYZRPVX
- * 存储通用字符串
+ *         存储通用字符串
  */
 
 public class TextValue {

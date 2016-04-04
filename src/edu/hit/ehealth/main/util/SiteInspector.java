@@ -2,7 +2,6 @@ package edu.hit.ehealth.main.util;
 
 import edu.hit.ehealth.main.crawler.basestruct.FutureListener;
 import edu.hit.ehealth.main.erroravenger.ErrorDBReader;
-import edu.hit.ehealth.main.erroravenger.ErrorWiper;
 import edu.hit.ehealth.main.util.mail.Mailer;
 import org.apache.http.client.fluent.Content;
 import org.apache.http.client.fluent.Request;

@@ -41,7 +41,7 @@ public class DoctorInfoCenterCrawler extends DynamicContentCrawler {
 //        c.crawl("http://www.haodf.com/doctor/DE4r08xQdKSLFCq0kgzM21bXlzuR.htm");
 //        c.crawl("http://www.haodf.com/doctor/DE4r0BCkuHzduSNTnHT0-22oNxVxB.htm");
         c.crawl("http://www.haodf.com/doctor/DE4rO-XCoLUniOEmi88QpNK6eR.htm");
-        
+
     }
 
     @Override
@@ -99,21 +99,21 @@ public class DoctorInfoCenterCrawler extends DynamicContentCrawler {
                 storeHomepageUrl(line);
                 isNearHomepage = false;
             }
-            if (line.contains("诊治过的患者数")){
-            	String allPatients = RegexUtils.regexFind("\\s+<td>(\\S+)</td>",line);
-            	if (Utils.SHOULD_PRT) System.out.println("患者总数 = " + allPatients);
-            	doctorInfoCenter.setAllPatients(allPatients);
+            if (line.contains("诊治过的患者数")) {
+                String allPatients = RegexUtils.regexFind("\\s+<td>(\\S+)</td>", line);
+                if (Utils.SHOULD_PRT) System.out.println("患者总数 = " + allPatients);
+                doctorInfoCenter.setAllPatients(allPatients);
             }
-            if (line.contains("随访中的患者数")){
-            	String sfPatients = RegexUtils.regexFind("\\s+<td>(\\S+)</td>", line);
-            	if (Utils.SHOULD_PRT) System.out.println("随访患者数= " + sfPatients);
-            	doctorInfoCenter.setSfPatients(sfPatients);
-            }         
-            if (line.contains("starRightliang")){
-            	star++;           	
-            }           
+            if (line.contains("随访中的患者数")) {
+                String sfPatients = RegexUtils.regexFind("\\s+<td>(\\S+)</td>", line);
+                if (Utils.SHOULD_PRT) System.out.println("随访患者数= " + sfPatients);
+                doctorInfoCenter.setSfPatients(sfPatients);
+            }
+            if (line.contains("starRightliang")) {
+                star++;
+            }
         }
-        System.out.println("星级  " +star);
+        System.out.println("星级  " + star);
         doctorInfoCenter.setStar(String.valueOf(star));
         infoDao.save(doctorInfoCenter);
     }

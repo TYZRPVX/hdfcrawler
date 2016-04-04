@@ -1,9 +1,8 @@
 package edu.hit.ehealth.main.crawler.doctor;
 
-import edu.hit.ehealth.main.util.Resource;
-import edu.hit.ehealth.main.util.Counter;
-import edu.hit.ehealth.main.util.mail.Mailer;
 import edu.hit.ehealth.main.define.TextValue;
+import edu.hit.ehealth.main.util.Counter;
+import edu.hit.ehealth.main.util.Resource;
 import edu.hit.ehealth.main.util.Utils;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.List;
 
 /**
  * 爬取顺序：省份-医院-科室-医生信息-医生主页
- * <p/>
+ * <p>
  * 读取所有科室，爬取并序列化所有信息中心、主页地址 从序列化文件中读出所有信息中心、所有主页地址
  */
 
