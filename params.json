@@ -1,6 +1,6 @@
 {
-  "name": "Hdfcrawler",
-  "tagline": "",
-  "body": "### javadoc\r\n[文档](http://tyzrpvx.github.io/hdfcrawler/docs/index.html)\r\n\r\n### Authors and Contributors\r\nYou can @mention a GitHub username to generate a link to their profile. The resulting `<a>` element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (@defunkt), PJ Hyett (@pjhyett), and Tom Preston-Werner (@mojombo) founded GitHub.\r\n\r\n### Support or Contact\r\nHaving trouble with Pages? Check out our [documentation](https://help.github.com/pages) or [contact support](https://github.com/contact) and we’ll help you sort it out.\r\n",
+  "name": "hdfcrawler",
+  "tagline": "just a concrete crawler",
+  "body": "### About\r\n[hdfcrawler](https://github.com/TYZRPVX/hdfcrawler) is a Java crawler, get more details at [hdfcrawler/wiki](https://github.com/TYZRPVX/hdfcrawler/wiki).\r\n\r\n###Docs\r\nCheck out the [API reference](http://tyzrpvx.github.io/hdfcrawler/docs/index.html) to learn more about this project.\r\n\r\n###License\r\nBSD License\r\nFor [eHealth Research Institute School of Management Harbin Institute of Technology](http://ehealth.hit.edu.cn/).\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
