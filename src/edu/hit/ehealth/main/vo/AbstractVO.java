@@ -14,8 +14,6 @@ import java.util.Date;
 
 /**
  * 用于CRUD的抽象VO，所有执行数据库操作的VO应继承于本类
- *
- * @author Jonathan
  */
 @MappedSuperclass
 public abstract class AbstractVO implements Serializable {
@@ -24,10 +22,6 @@ public abstract class AbstractVO implements Serializable {
 
     private String primaryId;
 
-    /**
-     * @return
-     * @See UUIDHexGenerator
-     */
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "edu.hit.ehealth.main.vo.UUIDHexGenerator")
