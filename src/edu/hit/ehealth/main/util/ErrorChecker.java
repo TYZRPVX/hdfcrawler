@@ -7,7 +7,12 @@ import edu.hit.ehealth.main.vo.ErrorMessage;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ErrorChecker {
+/**
+ * 用于分析数据库中异常产生原因，统计异常的特征
+ */
+
+@Deprecated
+class ErrorChecker {
 
     private ErrorDBReader reader;
 

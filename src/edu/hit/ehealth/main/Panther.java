@@ -17,9 +17,16 @@ import java.util.*;
 import java.util.concurrent.*;
 
 /**
- * 用于并发运行{@link edu.hit.ehealth.main.crawler}爬虫以及{@link SiteInspector 网络环境监控器} {@link ErrorWiper 错误修复器}
+ * <p>用于并发运行{@link edu.hit.ehealth.main.crawler}爬虫
+ * 以及{@link SiteInspector 网络环境监控器} {@link ErrorWiper 错误修复器}
+ * </p>
+ * <p>
  * 设置定时效果，例如{@link #runClassesOneMinuteConcurrently(Class[])}
- * 分发爬虫
+ * </p>
+ * <p>
+ * 分发爬虫到多台服务器上，Windows 上脚本示例：{@code java -cp libs/yjfrun.jar yjf.Main edu.hit.ehealth.main.Main libs 1}，
+ * 最后的数字用于标示当前服务器上运行哪一块爬虫，具体代码在 {@link #main(String[])}
+ * </p>
  */
 
 public class Panther {
@@ -143,6 +150,10 @@ public class Panther {
         timer.schedule(new ConcurrentTasks(classes), Utils.getCurrentDate(), aDayTime);
     }
 
+    /**
+     *
+     * @param classes
+     */
     public static void runClassesConcurrently(Class[] classes) {
         ExecutorService exec = Executors.newCachedThreadPool();
         ArrayList<Future<Class>> futures = new ArrayList<>();

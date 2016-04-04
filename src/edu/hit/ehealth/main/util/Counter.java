@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 在脚本（cmd命令行）上提醒当前爬虫爬取链接计数
+ */
 public class Counter {
 
     private static final int NEAR_DEFINITION = 2000;

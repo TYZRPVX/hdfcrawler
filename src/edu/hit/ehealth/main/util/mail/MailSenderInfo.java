@@ -23,7 +23,8 @@ public class MailSenderInfo {
     private String attachFileName;
 
     /**
-     * 获得邮件会话属性
+     *
+     * @return 邮件会话属性
      */
     public Properties getProperties() {
         Properties p = new Properties();

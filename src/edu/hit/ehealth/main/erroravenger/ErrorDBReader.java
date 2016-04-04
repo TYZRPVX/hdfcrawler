@@ -5,6 +5,10 @@ import edu.hit.ehealth.main.dao.GlobalApplicationContext;
 import edu.hit.ehealth.main.util.Utils;
 import edu.hit.ehealth.main.vo.ErrorMessage;
 
+/**
+ * 读取所有数据库中的错误消息对象
+ */
+
 public class ErrorDBReader {
 
     private ErrorMessageDao emDao =

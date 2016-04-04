@@ -5,6 +5,7 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class ReflectUtils {
 
     public static List<String> getParameterNames(Method method) {

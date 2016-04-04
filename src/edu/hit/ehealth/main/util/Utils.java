@@ -2,7 +2,6 @@ package edu.hit.ehealth.main.util;
 
 import edu.hit.ehealth.main.dao.ErrorMessageDao;
 import edu.hit.ehealth.main.dao.GlobalApplicationContext;
-import edu.hit.ehealth.main.vo.ErrorMessage;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -10,7 +9,6 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,16 +26,6 @@ public class Utils {
     private static ErrorMessageDao emDao =
             GlobalApplicationContext.getContext().getBean(ErrorMessageDao.class);
 
-    static {
-        try {
-            md5 = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
     public static Logger obtainLogger() {
         if (LOGGER_INSTANCE == null) {
             Properties props = new Properties();
@@ -50,14 +38,6 @@ public class Utils {
             LOGGER_INSTANCE = Logger.getLogger(Utils.class);
         }
         return LOGGER_INSTANCE;
-    }
-
-    public static void writeExceptionToDB(ErrorMessage errorMessage) {
-        try {
-            emDao.save(errorMessage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static String getStackTrace() {

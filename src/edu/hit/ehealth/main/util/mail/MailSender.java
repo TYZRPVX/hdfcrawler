@@ -14,6 +14,7 @@ public class MailSender {
      * 以HTML格式发送邮件
      *
      * @param mailInfo 待发送的邮件信息
+     * @return 是否正常发送
      */
     public static boolean sendHtmlMail(MailSenderInfo mailInfo) {
         // 判断是否需要身份认证
@@ -62,6 +63,7 @@ public class MailSender {
      * 以文本格式发送邮件
      *
      * @param mailInfo 待发送的邮件的信息
+     * @return 是否正常发送
      */
     public boolean sendTextMail(MailSenderInfo mailInfo) {
         // 判断是否需要身份认证

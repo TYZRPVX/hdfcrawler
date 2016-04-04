@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * ajax 请求居然是post操作，越来越复杂了，还是只能用selenium来
+ * <p>ajax 请求居然是post操作，越来越复杂了，还是只能用selenium来</p>
  * 我无意间又找到了ajax 真实地址：
- * http://zhaoquanming.haodf.com/index/ajaxShowFeedBack?from=dzone&doctorId=4269&userid=145556&nowPage=1&score=-1
+ * <a href="http://zhaoquanming.haodf.com/index/ajaxShowFeedBack?from=dzone&doctorId=4269&userid=145556&nowPage=1&score=-1">ajax</a>
  */
 public class DoctorConsultValuationCrawler extends Crawler implements NextPageTracker {
 
@@ -31,6 +31,7 @@ public class DoctorConsultValuationCrawler extends Crawler implements NextPageTr
     protected int pageCount = 1;
     private int pageNum;
     private DoctorConsultValuation valuation = new DoctorConsultValuation();
+
     public DoctorConsultValuationCrawler(Async async) {
         super(async);
     }

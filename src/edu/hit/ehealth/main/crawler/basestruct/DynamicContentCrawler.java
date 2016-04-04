@@ -11,6 +11,12 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * <p> 所有动态（js生成）网页都应该继承 {@link DynamicContentCrawler}.
+ *
+ * <p> 利用Selenium 生成指定链接的网页源代码，js 通常会被ChromeDriver解析完毕。ChromeDriver.exe 可在Windows上运行，位于项目根目录utils下
+ *
+ */
 public abstract class DynamicContentCrawler implements CrawlBehavior {
 
 
