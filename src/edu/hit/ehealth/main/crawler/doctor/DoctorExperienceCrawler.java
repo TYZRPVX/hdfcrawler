@@ -34,7 +34,8 @@ public class DoctorExperienceCrawler extends Crawler implements NextPageTracker 
         List<String> allExpUrl = new ArrayList<String>();
         int count = 0;
         for (String info : Resource.sAllInfoCenter) {
-            String expUrl1 = RegexUtils.regexReplace("(.htm)", info, "/kanbingjingyan/1.htm");
+//            String expUrl1 = RegexUtils.regexReplace("(.htm)", info, "/kanbingjingyan/1.htm");
+            String expUrl1 = RegexUtils.regexReplace("(.*)(.htm)", info, "/kanbingjingyan/1.htm");
             allExpUrl.add(expUrl1);
         }
         Counter counter = Counter.newInstance();

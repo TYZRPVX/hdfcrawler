@@ -147,7 +147,8 @@ public class DoctorConsultValuationCrawler extends Crawler implements NextPageTr
     @Override
     public String getNextPageUrl() {
         String currentUrl = trackPageUrl();
-        String nextPageUrl = RegexUtils.regexReplace("(nowPage=\\d+)", currentUrl, "nowPage=" + pageCount);
+//        String nextPageUrl = RegexUtils.regexReplace("(nowPage=\\d+)", currentUrl, "nowPage=" + pageCount);
+        String nextPageUrl = RegexUtils.regexReplace("(.*)(nowPage=\\d+)", currentUrl, "nowPage=" + pageCount);
         return nextPageUrl;
     }
 }
