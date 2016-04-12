@@ -33,7 +33,8 @@ public class ThankLetterCrawler extends Crawler {
     public static void run() {
         List<String> allLetterUrl = new ArrayList<String>();
         for (String infoCenter : Resource.sAllInfoCenter) {
-            String letterUrl = RegexUtils.regexReplace("(.htm)", infoCenter, "/ganxiexin/1.htm");
+//            String letterUrl = RegexUtils.regexReplace("(.htm)", infoCenter, "/ganxiexin/1.htm");
+            String letterUrl = RegexUtils.regexReplace("(.*)(.htm)", infoCenter, "/ganxiexin/1.htm");
             if (Utils.SHOULD_PRT) System.out.println("letterUrl = " + letterUrl);
             allLetterUrl.add(letterUrl);
         }
