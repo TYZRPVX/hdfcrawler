@@ -85,7 +85,8 @@ public class ThankLetterPatcherCrawler extends Crawler {
         pageCount++;
         if (pageCount <= pageNum) {
             String currentUrl = trackPageUrl();
-            String nextPageUrl = RegexUtils.regexReplace("(nowPage=\\d*)", currentUrl, "nowPage=" + pageCount);
+//            String nextPageUrl = RegexUtils.regexReplace("(nowPage=\\d*)", currentUrl, "nowPage=" + pageCount);
+            String nextPageUrl = RegexUtils.regexReplace("(.*)(nowPage=\\d*)", currentUrl, "nowPage=" + pageCount);
             if (Utils.SHOULD_PRT) System.out.println("nextPageUrl = " + nextPageUrl);
             crawl(nextPageUrl);
         }
