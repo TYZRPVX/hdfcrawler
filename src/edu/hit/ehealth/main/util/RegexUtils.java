@@ -34,7 +34,8 @@ public class RegexUtils {
         Matcher matcher = Pattern.compile(pattern).matcher(text);
         if (matcher.find() && matcher.groupCount() > 0) {
             String group = matcher.group(2);
-            String ret = matcher.replaceFirst("$1" + repSeg + "$3");
+//            String ret = matcher.replaceFirst("$1" + repSeg + "$3");
+            String ret = matcher.replaceFirst("$1" + repSeg);
             return ret;
         } else {
 //            String replaceErrorMsg = pattern + System.lineSeparator()
