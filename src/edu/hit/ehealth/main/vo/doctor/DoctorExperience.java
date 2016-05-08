@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "H_KBJY")
+@Table()
 public class DoctorExperience extends AbstractVOMD5 {
 
     private String personInfoID;
