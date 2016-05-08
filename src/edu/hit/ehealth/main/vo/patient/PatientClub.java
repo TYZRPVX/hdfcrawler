@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "H_HYHLB")
+@Table()
 public class PatientClub extends AbstractVOMD5 {
 
     public static final long serialVersionUID = 1L;
