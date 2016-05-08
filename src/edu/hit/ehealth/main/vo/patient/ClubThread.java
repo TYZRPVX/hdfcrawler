@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "H_HYHWB")
+@Table()
 public class ClubThread extends AbstractVOMD5 {
 
     private String topicID;
