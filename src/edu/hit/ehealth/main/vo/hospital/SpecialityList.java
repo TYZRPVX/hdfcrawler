@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "H_YYZK")
+@Table()
 public class SpecialityList extends AbstractVO {
 
     private String specName;
