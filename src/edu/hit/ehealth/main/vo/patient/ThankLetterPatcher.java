@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ThankLetterPatcher")
+@Table()
 public class ThankLetterPatcher extends AbstractVO {
 
     private String area;
